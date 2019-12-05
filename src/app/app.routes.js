@@ -11,6 +11,7 @@ import AppConfig from './app.config';
 import AppConstants from './app.constants';
 
 import LoadingAppPage from '../pages/generic/LoadingAppPage';
+import LoginPage from '../pages/login/LoginPage';
 
 class AppRoutes extends React.Component {
   reducerCreate = (params) => {
@@ -34,6 +35,12 @@ class AppRoutes extends React.Component {
             hideNavBar
             key={AppConstants.ROUTES.loadingApp}
             initial
+          />
+
+          <Scene
+            component={LoginPage}
+            hideNavBar
+            key={AppConstants.ROUTES.login}
           />
 
         </Stack>
