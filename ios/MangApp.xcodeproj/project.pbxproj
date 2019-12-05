@@ -17,6 +17,8 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* MangAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* MangAppTests.m */; };
 		52C9534DB360AFA3619EB5CE /* libPods-MangApp-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 221FF4BDF3DD3F872AAAC400 /* libPods-MangApp-tvOSTests.a */; };
+		CBDD8B722399331A00E247BE /* app_loader.png in Resources */ = {isa = PBXBuildFile; fileRef = CBDD8B712399331A00E247BE /* app_loader.png */; };
+		CBDD8B732399331A00E247BE /* app_loader.png in Resources */ = {isa = PBXBuildFile; fileRef = CBDD8B712399331A00E247BE /* app_loader.png */; };
 		E33EA88D8976F4A957301760 /* libPods-MangApp-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3269580BC9CAC5B0C828D0BE /* libPods-MangApp-tvOS.a */; };
 		E955ED4AF384C7904FC34A15 /* libPods-MangApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FF4D7AE7BC7CC9F669F2DE56 /* libPods-MangApp.a */; };
 		F7808B71A7BC01C20AFAAB39 /* libPods-MangAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 86E6E92BD035D595A1C74919 /* libPods-MangAppTests.a */; };
@@ -64,6 +66,7 @@
 		86E6E92BD035D595A1C74919 /* libPods-MangAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MangAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F2C38EB39D26A571DA7499A /* Pods-MangApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MangApp.release.xcconfig"; path = "Target Support Files/Pods-MangApp/Pods-MangApp.release.xcconfig"; sourceTree = "<group>"; };
 		9DF30B72E4AA31926AD865CE /* Pods-MangApp-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MangApp-tvOS.release.xcconfig"; path = "Target Support Files/Pods-MangApp-tvOS/Pods-MangApp-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		CBDD8B712399331A00E247BE /* app_loader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = app_loader.png; path = ../src/assets/images/app_loader.png; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		FF4D7AE7BC7CC9F669F2DE56 /* libPods-MangApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MangApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -161,7 +164,6 @@
 				84D5AD12BE17585166662AC5 /* Pods-MangAppTests.debug.xcconfig */,
 				22A98A5D1626FB4035069CC0 /* Pods-MangAppTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -175,6 +177,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				CBDD8B712399331A00E247BE /* app_loader.png */,
 				13B07FAE1A68108700A75B9A /* MangApp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* MangAppTests */,
@@ -308,6 +311,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -329,6 +333,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBDD8B732399331A00E247BE /* app_loader.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,6 +343,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				CBDD8B722399331A00E247BE /* app_loader.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

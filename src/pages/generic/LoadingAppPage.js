@@ -1,19 +1,21 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {
+  Image,
   StyleSheet,
   View,
 } from 'react-native';
 import { connect } from 'react-redux';
 
 import AppColors from '../../app/app.colors';
-import CustomLoader from '../../components/common/CustomLoader';
+import AppSizes from '../../app/app.sizes';
 import * as AppActions from '../../redux/actions/app-actions';
+import images from '../../assets/images';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: AppColors.palette.white,
+    backgroundColor: AppColors.palette.black,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -32,7 +34,10 @@ class LoadingPage extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <CustomLoader />
+        <Image
+          source={images.loader}
+          style={{ width: AppSizes.screen.widthTwoThirds, height: AppSizes.screen.widthTwoThirds }}
+        />
       </View>
     );
   }
