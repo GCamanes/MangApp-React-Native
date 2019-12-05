@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import {
   ActivityIndicator,
   Animated,
+  Easing,
   Image,
   Text,
   TextInput,
@@ -51,14 +52,26 @@ class LoginPage extends Component {
 
   onLoginPress = () => {
     const { loginWidth, loading } = this.state;
-    Animated.timing(
-      loginWidth,
-      {
-        toValue: 40,
-        duration: 300,
-      },
-    ).start();
-    this.setState({ loading: true });
+    if (loading) {
+      Animated.timing(
+        loginWidth,
+        {
+          toValue: AppSizes.screen.width60,
+          duration: 300,
+          easing: Easing.bounce,
+        },
+      ).start();
+      this.setState({ loading: false });
+    } else {
+      Animated.timing(
+        loginWidth,
+        {
+          toValue: 40,
+          duration: 300,
+        },
+      ).start();
+      this.setState({ loading: true });
+    }
   }
 
   render() {
