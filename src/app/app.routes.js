@@ -1,0 +1,45 @@
+import React from 'react';
+import {
+  Reducer,
+  Router,
+  Scene,
+  Stack,
+} from 'react-native-router-flux';
+import { connect } from 'react-redux';
+
+import AppConfig from './app.config';
+import AppConstants from './app.constants';
+
+import LoadingAppPage from '../pages/generic/LoadingAppPage';
+
+class AppRoutes extends React.Component {
+  reducerCreate = (params) => {
+    const defaultReducer = new Reducer(params);
+    return (state, action) => {
+      this.props.dispatch(action);
+      if (state) {
+        this.props.dispatch({ type: 'ROUTER_STATE_CHANGED', payload: state });
+      }
+      return defaultReducer(state, action);
+    };
+  };
+
+  render() {
+    return (
+      <Router createReducer={this.reducerCreate}>
+        <Stack key="root" {...AppConfig.navbarProps}>
+
+          <Scene
+            component={LoadingAppPage}
+            hideNavBar
+            key={AppConstants.ROUTES.loadingApp}
+            initial
+          />
+
+        </Stack>
+      </Router>
+    );
+  }
+}
+
+export default connect()(AppRoutes);
