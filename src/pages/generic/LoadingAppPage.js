@@ -7,12 +7,13 @@ import {
 import { connect } from 'react-redux';
 
 import AppColors from '../../app/app.colors';
+import CustomLoader from '../../components/common/CustomLoader';
 import * as AppActions from '../../redux/actions/app-actions';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: AppColors.palette.whiteSmoke,
+    backgroundColor: AppColors.palette.white,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -30,7 +31,9 @@ class LoadingPage extends Component {
 
   render() {
     return (
-      <View style={styles.container} />
+      <View style={styles.container}>
+        <CustomLoader />
+      </View>
     );
   }
 }
