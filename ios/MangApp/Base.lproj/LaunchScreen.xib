@@ -13,14 +13,14 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loader.png" translatesAutoresizingMaskIntoConstraints="NO" id="dYN-0t-5Cz">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_logo_original.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="dYN-0t-5Cz">
                     <rect key="frame" x="81.5" y="81.5" width="317" height="317"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="dYN-0t-5Cz" secondAttribute="height" multiplier="1:1" id="sMA-VG-fdt"/>
                     </constraints>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" red="0.094102360308170319" green="0.09412645548582077" blue="0.094100810587406158" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="dYN-0t-5Cz" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="2af-Xm-UtO"/>
                 <constraint firstItem="dYN-0t-5Cz" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="3N4-XA-IhR"/>
@@ -32,6 +32,6 @@
         </view>
     </objects>
     <resources>
-        <image name="app_loader.png" width="192" height="192"/>
+        <image name="app_logo_original.jpg" width="151.34124755859375" height="151.34124755859375"/>
     </resources>
 </document>

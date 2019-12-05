@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: AppColors.palette.black,
+    backgroundColor: AppColors.palette.blackSmoke,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -49,7 +49,7 @@ class LoadingPage extends Component {
     return (
       <View style={styles.container}>
         <Image
-          source={images.loader}
+          source={images.logo_original}
           style={{ width: AppSizes.screen.widthTwoThirds, height: AppSizes.screen.widthTwoThirds }}
         />
         <View style={styles.bottomView}>
