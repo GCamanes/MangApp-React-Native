@@ -1,5 +1,5 @@
 const images = {
-  loader: require('./app_loader.png'),
+  loader: require('./app_logo_loader.png'),
 };
 
 export default images;
