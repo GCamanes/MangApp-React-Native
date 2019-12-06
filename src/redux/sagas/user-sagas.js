@@ -17,8 +17,13 @@ export function* loginUserSaga(action) {
   } = action.payload;
   yield delay(500);
   try {
+    if (!mail.length || !password.length) {
+      throw new Error('EMPTY_INPUT');
+    }
     yield firebase.auth().signInWithEmailAndPassword(mail, password);
     yield onSuccess();
+    yield delay(1000);
+    Actions.reset(AppConstants.ROUTES.home);
   } catch (error) {
     console.log('ERROR LOGIN USER', error);
     onError();

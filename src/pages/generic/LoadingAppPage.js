@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import AppColors from '../../app/app.colors';
 import AppFonts from '../../app/app.fonts';
 import AppSizes, { normalize } from '../../app/app.sizes';
+import CustomLoader from '../../components/common/CustomLoader';
 import * as AppActions from '../../redux/actions/app-actions';
 import images from '../../assets/images';
 
@@ -35,17 +36,30 @@ const styles = StyleSheet.create({
 });
 
 class LoadingPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: false,
+    };
+  }
+
   componentDidMount() {
     this.loadApp();
   }
 
-  loadApp = async () => {
+  onFireBaseAuthSuccess = () => {
+    this.setState({ loading: true });
+  }
+
+  loadApp = () => {
     const { loadApp } = this.props;
-    await loadApp();
+    loadApp(this.onFireBaseAuthSuccess);
   };
 
   render() {
     const { version } = this.props;
+    const { loading } = this.state;
+
     return (
       <View style={styles.container}>
         <Image
@@ -53,6 +67,9 @@ class LoadingPage extends Component {
           style={{ width: AppSizes.screen.widthTwoThirds, height: AppSizes.screen.widthTwoThirds }}
         />
         <View style={styles.bottomView}>
+          {loading && (
+            <CustomLoader />
+          )}
           <Text style={styles.bottomText}>
             {`Version ${version}`}
           </Text>

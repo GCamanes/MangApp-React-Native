@@ -6,9 +6,10 @@ export function closeErrorView() {
   };
 }
 
-export function loadApp() {
+export function loadApp(onFireBaseAuthSuccess) {
   return {
     type: AppConstants.EVENTS.LOAD_APP_SAGA,
+    payload: onFireBaseAuthSuccess,
   };
 }
 

@@ -1,3 +1,4 @@
+import firebase from 'react-native-firebase';
 import { Actions } from 'react-native-router-flux';
 import {
   delay,
@@ -8,13 +9,20 @@ import { getVersion } from 'react-native-device-info';
 
 import AppConstants from '../../app/app.constants';
 
-export function* loadAppSaga() {
+export function* loadAppSaga(action) {
   try {
     // stuff to load
     const version = yield getVersion();
     yield put({ type: AppConstants.EVENTS.SET_APP_VERSION_REDUX, payload: version });
-    yield delay(1500);
-    Actions.reset(AppConstants.ROUTES.login);
+    const user = yield firebase.auth().currentUser;
+    if (user) {
+      action.payload();
+      yield delay(2000);
+      Actions.reset(AppConstants.ROUTES.home);
+    } else {
+      yield delay(1000);
+      Actions.reset(AppConstants.ROUTES.login);
+    }
   } catch (error) {
     console.log('ERROR LOADING APP', error);
   }

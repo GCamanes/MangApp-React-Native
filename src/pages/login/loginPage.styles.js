@@ -30,6 +30,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     borderRadius: 50,
   },
+  loginTouchable: {
+    flex: 1,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   loginText: {
     fontSize: AppFonts.t16.size,
     color: AppColors.palette.black,

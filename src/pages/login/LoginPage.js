@@ -29,8 +29,6 @@ class LoginPage extends Component {
       loginTop: new Animated.Value(AppSizes.screen.height),
       loginWidth: new Animated.Value(AppSizes.screen.width60),
     };
-
-    this.buttonOpacity = new Animated.Value(0);
   }
 
   componentDidMount() {
@@ -138,7 +136,7 @@ class LoginPage extends Component {
         >
           <TouchableOpacity
             onPress={this.onLoginPress}
-            style={{ flex: 1, width: '100%', alignItems: 'center', justifyContent: 'center' }}
+            style={styles.loginTouchable}
           >
             {(!loading) ? (
               <Text style={styles.loginText}>

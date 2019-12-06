@@ -5,11 +5,15 @@ import {
   Scene,
   Stack,
 } from 'react-native-router-flux';
+import {
+  View,
+} from 'react-native';
 import { connect } from 'react-redux';
 
 import AppConfig from './app.config';
 import AppConstants from './app.constants';
 
+import HomePage from '../pages/home/HomePage';
 import LoadingAppPage from '../pages/generic/LoadingAppPage';
 import LoginPage from '../pages/login/LoginPage';
 
@@ -29,6 +33,13 @@ class AppRoutes extends React.Component {
     return (
       <Router createReducer={this.reducerCreate}>
         <Stack key="root" {...AppConfig.navbarProps}>
+
+          <Scene
+            component={HomePage}
+            key={AppConstants.ROUTES.home}
+            title="MangApp"
+            renderBackButton={() => <View />}
+          />
 
           <Scene
             component={LoadingAppPage}
