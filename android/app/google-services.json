@@ -1,0 +1,155 @@
+{
+  "project_info": {
+    "project_number": "300134624844",
+    "firebase_url": "https://mangareader-ef367.firebaseio.com",
+    "project_id": "mangareader-ef367",
+    "storage_bucket": "mangareader-ef367.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:300134624844:android:1526a21ac8ac6cabae0ee9",
+        "android_client_info": {
+          "package_name": "com.groupany.mangapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "300134624844-edcv7qdvj1dcpvehcm2fgltgjl0at640.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDm7H13zzrOCF-I3sgKfovfIGs9IwTqW6w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "300134624844-edcv7qdvj1dcpvehcm2fgltgjl0at640.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "300134624844-9j4mcv8cunn1gsk41qv1ek0p4krsb1se.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mangareaderapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:300134624844:android:48ac28887433ffa2",
+        "android_client_info": {
+          "package_name": "com.mangareaderapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "300134624844-edcv7qdvj1dcpvehcm2fgltgjl0at640.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDm7H13zzrOCF-I3sgKfovfIGs9IwTqW6w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "300134624844-edcv7qdvj1dcpvehcm2fgltgjl0at640.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "300134624844-9j4mcv8cunn1gsk41qv1ek0p4krsb1se.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mangareaderapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:300134624844:android:4350b6de3b6a31aaae0ee9",
+        "android_client_info": {
+          "package_name": "com.pocketmanga"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "300134624844-edcv7qdvj1dcpvehcm2fgltgjl0at640.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDm7H13zzrOCF-I3sgKfovfIGs9IwTqW6w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "300134624844-edcv7qdvj1dcpvehcm2fgltgjl0at640.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "300134624844-9j4mcv8cunn1gsk41qv1ek0p4krsb1se.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mangareaderapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:300134624844:android:0b27de7c75397667ae0ee9",
+        "android_client_info": {
+          "package_name": "com.test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "300134624844-edcv7qdvj1dcpvehcm2fgltgjl0at640.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDm7H13zzrOCF-I3sgKfovfIGs9IwTqW6w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "300134624844-edcv7qdvj1dcpvehcm2fgltgjl0at640.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "300134624844-9j4mcv8cunn1gsk41qv1ek0p4krsb1se.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mangareaderapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

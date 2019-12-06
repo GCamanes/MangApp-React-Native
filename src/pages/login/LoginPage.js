@@ -22,8 +22,8 @@ class LoginPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userMail: '',
-      userPassword: '',
+      mail: '',
+      password: '',
       loading: false,
       loginOpacity: new Animated.Value(0),
       loginTop: new Animated.Value(AppSizes.screen.height),
@@ -35,24 +35,26 @@ class LoginPage extends Component {
 
   componentDidMount() {
     const { loginOpacity, loginTop } = this.state;
-    Animated.timing(
-      loginOpacity,
-      {
+    Animated.parallel([
+      Animated.timing(loginOpacity, {
         toValue: 1,
         duration: 1000,
-      },
-    ).start();
-    Animated.timing(
-      loginTop,
-      {
+      }),
+      Animated.timing(loginTop, {
         toValue: AppSizes.screen.height - normalize(130),
         duration: 1000,
-      },
-    ).start();
+      }),
+    ]).start();
   }
 
   onLoginPress = async () => {
-    const { loginWidth } = this.state;
+    const {
+      loginOpacity,
+      loginTop,
+      loginWidth,
+      mail,
+      password,
+    } = this.state;
     const { login } = this.props;
 
     const onError = () => {
@@ -67,6 +69,19 @@ class LoginPage extends Component {
       this.setState({ loading: false });
     }
 
+    const onSuccess = async () => {
+      await Animated.parallel([
+        Animated.timing(loginTop, {
+          toValue: AppSizes.screen.height,
+          duration: 1000,
+        }),
+        Animated.timing(loginOpacity, {
+          toValue: 0,
+          duration: 500,
+        }),
+      ]).start();
+    }
+
     this.setState({ loading: true });
     await Animated.timing(
       loginWidth,
@@ -75,7 +90,7 @@ class LoginPage extends Component {
         duration: 300,
       },
     ).start();
-    login('test', 'test', onError);
+    login(mail, password, onSuccess, onError);
   }
 
   render() {
@@ -84,8 +99,8 @@ class LoginPage extends Component {
       loginOpacity,
       loginTop,
       loginWidth,
-      userMail,
-      userPassword,
+      mail,
+      password,
     } = this.state;
 
     return (
@@ -95,8 +110,8 @@ class LoginPage extends Component {
           style={{ width: AppSizes.screen.widthHalf, height: AppSizes.screen.widthHalf }}
         />
         <TextInput
-          value={userMail}
-          onChangeText={(text) => this.setState({ userMail: text })}
+          value={mail}
+          onChangeText={(text) => this.setState({ mail: text })}
           placeholder="Mail"
           selectionColor={AppColors.palette.blackSmoke}
           keyboardType="email-address"
@@ -104,8 +119,8 @@ class LoginPage extends Component {
           autoCapitalize="none"
         />
         <TextInput
-          value={userPassword}
-          onChangeText={(text) => this.setState({ userPassword: text })}
+          value={password}
+          onChangeText={(text) => this.setState({ password: text })}
           placeholder="Password"
           selectionColor={AppColors.palette.blackSmoke}
           secureTextEntry

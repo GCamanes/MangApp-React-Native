@@ -1,3 +1,4 @@
+import firebase from 'react-native-firebase';
 import { Actions } from 'react-native-router-flux';
 import {
   delay,
@@ -8,14 +9,18 @@ import {
 import AppConstants from '../../app/app.constants';
 
 export function* loginUserSaga(action) {
-  const { mail, password, onError } = action.payload;
-  yield delay(3000);
+  const {
+    mail,
+    password,
+    onSuccess,
+    onError,
+  } = action.payload;
+  yield delay(500);
   try {
-    if (mail === 'test') {
-      throw new Error('Wrong email or password');
-    }
+    yield firebase.auth().signInWithEmailAndPassword(mail, password);
+    yield onSuccess();
   } catch (error) {
-    console.log('ERROR LOGIN USER', action.payload);
+    console.log('ERROR LOGIN USER', error);
     onError();
   }
 }
