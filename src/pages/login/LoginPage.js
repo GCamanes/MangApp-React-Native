@@ -13,9 +13,10 @@ import {
 import { connect } from 'react-redux';
 
 import AppColors from '../../app/app.colors';
+import AppSizes, { normalize } from '../../app/app.sizes';
 import styles from './loginPage.styles';
 import images from '../../assets/images';
-import AppSizes, { normalize } from '../../app/app.sizes';
+import * as UserActions from '../../redux/actions/user-actions';
 
 class LoginPage extends Component {
   constructor(props) {
@@ -50,9 +51,11 @@ class LoginPage extends Component {
     ).start();
   }
 
-  onLoginPress = () => {
-    const { loginWidth, loading } = this.state;
-    if (loading) {
+  onLoginPress = async () => {
+    const { loginWidth } = this.state;
+    const { login } = this.props;
+
+    const onError = () => {
       Animated.timing(
         loginWidth,
         {
@@ -62,16 +65,17 @@ class LoginPage extends Component {
         },
       ).start();
       this.setState({ loading: false });
-    } else {
-      Animated.timing(
-        loginWidth,
-        {
-          toValue: 40,
-          duration: 300,
-        },
-      ).start();
-      this.setState({ loading: true });
     }
+
+    this.setState({ loading: true });
+    await Animated.timing(
+      loginWidth,
+      {
+        toValue: 40,
+        duration: 300,
+      },
+    ).start();
+    login('test', 'test', onError);
   }
 
   render() {
@@ -136,4 +140,8 @@ class LoginPage extends Component {
   }
 }
 
-export default connect()(LoginPage);
+LoginPage.propTypes = {
+  login: PropTypes.func.isRequired,
+};
+
+export default connect(null, UserActions)(LoginPage);
