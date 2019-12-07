@@ -2,6 +2,9 @@ import React from 'react';
 
 import AppColors from './app.colors';
 import AppStyles from './app.styles';
+import BackButton from '../components/common/BackButton';
+
+const backButton = () => <BackButton />;
 
 const AppConfig = {
   navbarProps: {
@@ -11,6 +14,7 @@ const AppConfig = {
     navigationBarStyle: AppStyles.navbar,
     navBarButtonColor: AppStyles.navbarButton.tintColor,
     leftButtonIconStyle: AppStyles.navbarButton,
+    renderBackButton: backButton,
     rightButtonIconStyle: AppStyles.navbarButton,
     sceneStyle: {
       backgroundColor: AppColors.palette.white,

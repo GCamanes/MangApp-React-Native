@@ -5,9 +5,6 @@ import {
   Scene,
   Stack,
 } from 'react-native-router-flux';
-import {
-  View,
-} from 'react-native';
 import { connect } from 'react-redux';
 
 import AppConfig from './app.config';
@@ -38,7 +35,6 @@ class AppRoutes extends React.Component {
             component={HomePage}
             key={AppConstants.ROUTES.home}
             title="MangApp"
-            renderBackButton={() => <View />}
           />
 
           <Scene

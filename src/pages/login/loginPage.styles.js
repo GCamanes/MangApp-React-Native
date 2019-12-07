@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     color: AppColors.palette.blackSmoke,
     backgroundColor: AppColors.palette.whiteSmoke,
-    borderColor: AppColors.palette.black,
+    borderColor: AppColors.palette.yellow,
     borderRadius: 10,
     borderWidth: 2,
     fontSize: AppFonts.t16.size,

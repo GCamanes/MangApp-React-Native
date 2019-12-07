@@ -30,7 +30,8 @@ export function* loginUserSaga(action) {
   }
 }
 
-export function logoutUserSaga() {
+export function* logoutUserSaga() {
+  yield firebase.auth().signOut();
   Actions.reset(AppConstants.ROUTES.login);
 }
 

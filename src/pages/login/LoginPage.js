@@ -111,7 +111,7 @@ class LoginPage extends Component {
           value={mail}
           onChangeText={(text) => this.setState({ mail: text })}
           placeholder="Mail"
-          selectionColor={AppColors.palette.blackSmoke}
+          selectionColor={AppColors.palette.red}
           keyboardType="email-address"
           style={styles.input}
           autoCapitalize="none"
@@ -120,7 +120,7 @@ class LoginPage extends Component {
           value={password}
           onChangeText={(text) => this.setState({ password: text })}
           placeholder="Password"
-          selectionColor={AppColors.palette.blackSmoke}
+          selectionColor={AppColors.palette.red}
           secureTextEntry
           style={styles.input}
           autoCapitalize="none"
@@ -143,7 +143,7 @@ class LoginPage extends Component {
                 Login
               </Text>
             ) : (
-              <ActivityIndicator size="small" color={AppColors.palette.blackSmoke} />
+              <ActivityIndicator size="large" color={AppColors.palette.red} />
             )}
 
           </TouchableOpacity>

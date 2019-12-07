@@ -20,7 +20,7 @@ export function* loadAppSaga(action) {
       yield delay(2000);
       Actions.reset(AppConstants.ROUTES.home);
     } else {
-      yield delay(1000);
+      yield delay(2000);
       Actions.reset(AppConstants.ROUTES.login);
     }
   } catch (error) {
