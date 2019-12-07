@@ -1,4 +1,5 @@
 import AppColors from './app.colors';
+import AppFonts from './app.fonts';
 
 const AppStyles = {
   // NavBar styles
@@ -14,6 +15,11 @@ const AppStyles = {
   },
   navbarButton: {
     tintColor: AppColors.palette.white,
+  },
+  // Icon Styles
+  icon: {
+    fontSize: AppFonts.t25.size,
+    color: AppColors.palette.white,
   },
 };
 
