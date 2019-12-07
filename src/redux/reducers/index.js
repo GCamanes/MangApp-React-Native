@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux';
 
 import app from './app-reducer';
+import manga from './manga-reducer';
 import router from './router-reducer';
 
 // Combine all
 const appReducer = combineReducers({
   app,
+  manga,
   router,
 });
 
