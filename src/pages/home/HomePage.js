@@ -11,17 +11,36 @@ import AppStyles from '../../app/app.styles';
 import CustomLoader from '../../components/common/CustomLoader';
 import MangaListItem from '../../components/manga/MangaListItem';
 import MangaSectionTitle from '../../components/manga/MangaSectionTitle';
+import SearchBar from '../../components/manga/SearchBar';
 import styles from './homePage.styles';
 import * as MangaActions from '../../redux/actions/manga-actions';
 
 class HomePage extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      search: '',
+    };
+  }
+
   componentDidMount() {
     const { getMangas } = this.props;
     getMangas();
   }
 
+  onSearchChange = (search) => {
+    this.setState({ search });
+  };
+
+  onCancelSearch = () => {
+    this.setState({ search: '' });
+  };
+
   render() {
     const { loadingStatus, mangas } = this.props;
+    const { search } = this.state;
+
     if (loadingStatus.loading) {
       return (
         <View style={AppStyles.loadingView}>
@@ -31,6 +50,11 @@ class HomePage extends Component {
     }
     return (
       <View style={styles.container}>
+        <SearchBar
+          onSearchChange={this.onSearchChange}
+          onCancelSearch={this.onCancelSearch}
+          value={search}
+        />
         <SectionList
           initialNumToRender={30}
           keyExtractor={(item) => item.name}
@@ -43,13 +67,13 @@ class HomePage extends Component {
             {
               title: 'Favorites',
               data: mangas.filter(
-                (item) => item.isFavorite,
+                (item) => item.name.toLowerCase().includes(search) && item.isFavorite,
               ),
             },
             {
               title: 'Others',
               data: mangas.filter(
-                (item) => !item.isFavorite,
+                (item) => item.name.toLowerCase().includes(search) && !item.isFavorite,
               ),
             },
           ]}

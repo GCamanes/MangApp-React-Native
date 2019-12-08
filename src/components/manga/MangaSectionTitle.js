@@ -29,6 +29,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: AppColors.palette.yellow,
     marginHorizontal: 15,
+    width: AppSizes.screen.width * 0.35,
+    textAlign: 'center',
   },
 });
 
