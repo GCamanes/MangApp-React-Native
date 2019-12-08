@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import AppConstants from '../../app/app.constants';
 import AppStyles from '../../app/app.styles';
 import CustomLoader from '../../components/common/CustomLoader';
+import MangaListItem from '../../components/manga/MangaListItem';
 import styles from './homePage.styles';
 import * as MangaActions from '../../redux/actions/manga-actions';
 
@@ -34,7 +35,7 @@ class HomePage extends Component {
           initialNumToRender={30}
           keyExtractor={(item) => item.name}
           onEndReachedThreshold={30}
-          renderItem={({ item }) => <Text style={{ color: 'grey' }}>{item.name}</Text>}
+          renderItem={({ item }) => <MangaListItem manga={item} />}
           renderSectionHeader={({ section: { title } }) => (
             <Text style={{ color: 'white' }}>{title}</Text>
           )}
