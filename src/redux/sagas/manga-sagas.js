@@ -4,10 +4,14 @@ import {
   takeLatest,
 } from 'redux-saga/effects';
 import AppConstants from '../../app/app.constants';
-import { getItem } from '../../utils/storage';
+import { getItem, setItem, removeItem } from '../../utils/storage';
 import showAlert from '../../utils/showAlert';
 
 export function* getMangasSaga() {
+  yield put({
+    type: AppConstants.EVENTS.SHOW_LOADING_REDUCER,
+    payload: { scene: AppConstants.ROUTES.home, loading: true },
+  });
   try {
     const mangasData = yield firebase
       .firestore()
@@ -37,6 +41,27 @@ export function* getMangasSaga() {
     console.log('\nerror is getMangasSaga', error);
     showAlert('Error while getting Firebase data', 'Error');
   }
+  yield put({
+    type: AppConstants.EVENTS.SHOW_LOADING_REDUCER,
+    payload: { scene: AppConstants.ROUTES.home, loading: false },
+  });
+}
+
+export function* markMangaFavoriteSaga(action) {
+  try {
+    const { payload } = action;
+    if (payload.value) {
+      yield setItem(payload.manga, 'on');
+    } else {
+      yield removeItem(payload.manga);
+    }
+    yield put({
+      type: AppConstants.EVENTS.MANGA_MARKED_AS_FAVORITE,
+      payload: {manga: payload.manga, isFavorite: payload.value},
+    });
+  } catch (error) {
+    console.log('\nerror is markMangaFavoriteSaga', error);
+  }
 }
 
 /**
@@ -46,4 +71,5 @@ export function* getMangasSaga() {
  */
 export default function* watch() {
   yield takeLatest(AppConstants.EVENTS.GET_MANGAS_SAGA, getMangasSaga);
+  yield takeLatest(AppConstants.EVENTS.MARK_MANGA_FAVORITE_SAGA, markMangaFavoriteSaga);
 }

@@ -28,7 +28,9 @@ export default function userReducer(state = initialState, action) {
     case AppConstants.EVENTS.SHOW_LOADING_REDUCER:
       return {
         ...state,
-        loading: action.payload,
+        [action.payload.scene]: {
+          loading: action.payload.loading,
+        },
       };
     case AppConstants.EVENTS.SET_APP_VERSION_REDUX:
       return {

@@ -7,6 +7,9 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 
+import AppConstants from '../../app/app.constants';
+import AppStyles from '../../app/app.styles';
+import CustomLoader from '../../components/common/CustomLoader';
 import styles from './homePage.styles';
 import * as MangaActions from '../../redux/actions/manga-actions';
 
@@ -17,7 +20,14 @@ class HomePage extends Component {
   }
 
   render() {
-    const { mangas } = this.props;
+    const { loadingStatus, mangas } = this.props;
+    if (loadingStatus.loading) {
+      return (
+        <View style={AppStyles.loadingView}>
+          <CustomLoader />
+        </View>
+      );
+    }
     return (
       <View style={styles.container}>
         <SectionList
@@ -50,10 +60,16 @@ class HomePage extends Component {
 
 HomePage.propTypes = {
   getMangas: PropTypes.func.isRequired,
+  loadingStatus: PropTypes.object,
   mangas: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
+HomePage.defaultProps = {
+  loadingStatus: { loading: false },
+};
+
 const mapStateToProps = (state) => ({
+  loadingStatus: state.app[AppConstants.ROUTES.home],
   mangas: state.manga.mangas,
 });
 

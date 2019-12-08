@@ -2,6 +2,12 @@ import AppColors from './app.colors';
 import AppFonts from './app.fonts';
 
 const AppStyles = {
+  loadingView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: AppColors.palette.blackSmoke,
+  },
   // NavBar styles
   navbar: {
     backgroundColor: AppColors.palette.black,

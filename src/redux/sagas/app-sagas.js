@@ -17,7 +17,7 @@ export function* loadAppSaga(action) {
     const user = yield firebase.auth().currentUser;
     if (user) {
       action.payload();
-      yield delay(2000);
+      yield delay(3000);
       Actions.reset(AppConstants.ROUTES.home);
     } else {
       yield delay(2000);
