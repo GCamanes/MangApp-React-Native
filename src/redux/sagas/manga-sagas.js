@@ -57,7 +57,7 @@ export function* markMangaFavoriteSaga(action) {
     }
     yield put({
       type: AppConstants.EVENTS.MANGA_MARKED_AS_FAVORITE,
-      payload: {manga: payload.manga, isFavorite: payload.value},
+      payload: { manga: payload.manga, isFavorite: payload.value },
     });
   } catch (error) {
     console.log('\nerror is markMangaFavoriteSaga', error);
