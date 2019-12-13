@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
+  Animated,
   Image,
   Text,
   TouchableOpacity,
@@ -14,16 +15,43 @@ import Icon from '../common/Icon';
 import styles from './mangaListItem.styles';
 import * as MangaActions from '../../redux/actions/manga-actions';
 
+import FontMangApp from '../../assets/icons/icons-mangapp';
+
 class MangaListItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      iconSize: new Animated.Value(AppFonts.t25.size),
+    };
+  }
+
   onFavoritePress = () => {
     const { manga, markMangaAsFavorite } = this.props;
-    markMangaAsFavorite(manga.name, !manga.isFavorite);
+    const { iconSize } = this.state;
+
+    Animated.sequence([
+      Animated.timing(
+        iconSize,
+        {
+          toValue: AppFonts.t40.size,
+          duration: 400,
+        },
+      ),
+      Animated.timing(
+        iconSize,
+        {
+          toValue: AppFonts.t25.size,
+          duration: 400,
+        },
+      ),
+    ]).start(() => markMangaAsFavorite(manga.name, !manga.isFavorite));
   }
 
   render() {
     const { manga } = this.props;
+    const { iconSize } = this.state;
     return (
-      <View style={styles.container}>
+      <TouchableOpacity activeOpacity={0.8} style={styles.container}>
         <Image source={{ uri: manga.imgUrl }} style={styles.mangaImg} />
         <View style={styles.infosView}>
           <Text
@@ -57,16 +85,23 @@ class MangaListItem extends React.Component {
             </Text>
           </View>
         </View>
-        <TouchableOpacity
-          onPress={this.onFavoritePress}
-          style={styles.favoriteView}
-        >
-          <Icon
-            name={manga.isFavorite ? 'starFull' : 'starEmpty'}
-            style={{ color: manga.isFavorite ? AppColors.palette.red : AppColors.palette.red }}
-          />
-        </TouchableOpacity>
-      </View>
+        <Animated.View style={styles.favoriteView}>
+          <TouchableOpacity
+            onPress={this.onFavoritePress}
+            style={styles.favoriteTouchableView}
+          >
+            <Animated.Text
+              style={{
+                ...styles.icon,
+                color: manga.isFavorite ? AppColors.palette.red : AppColors.palette.red,
+                fontSize: iconSize,
+              }}
+            >
+              {FontMangApp[manga.isFavorite ? 'starFull' : 'starEmpty']}
+            </Animated.Text>
+          </TouchableOpacity>
+        </Animated.View>
+      </TouchableOpacity>
     );
   }
 }

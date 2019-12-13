@@ -20,15 +20,24 @@ const styles = StyleSheet.create({
   },
   favoriteView: {
     flex: 1.5,
-    paddingVertical: 10,
     alignItems: 'center',
     justifyContent: 'center',
+    height: '100%',
+  },
+  favoriteTouchableView: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
   },
   mangaImg: {
     height: AppSizes.screen.width * 0.21,
     width: AppSizes.screen.width * 0.14,
     marginRight: 5,
     borderRadius: 5,
+  },
+  icon: {
+    fontFamily: 'mangapp',
   },
 });
 
