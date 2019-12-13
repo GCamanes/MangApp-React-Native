@@ -13,6 +13,7 @@ import AppConstants from './app.constants';
 import HomePage from '../pages/home/HomePage';
 import LoadingAppPage from '../pages/generic/LoadingAppPage';
 import LoginPage from '../pages/login/LoginPage';
+import VersionContainer from '../components/common/VersionContainer';
 
 class AppRoutes extends React.Component {
   reducerCreate = (params) => {
@@ -35,6 +36,7 @@ class AppRoutes extends React.Component {
             component={HomePage}
             key={AppConstants.ROUTES.home}
             title="MangApp"
+            renderRightButton={<VersionContainer />}
           />
 
           <Scene
