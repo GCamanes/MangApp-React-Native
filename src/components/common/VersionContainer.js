@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 
 import AppColors from '../../app/app.colors';
 import AppFonts from '../../app/app.fonts';
-import AppSizes from '../../app/app.sizes';
 
 const VersionContainer = ({ version }) => (
   <View

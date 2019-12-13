@@ -2,6 +2,7 @@ import AppConstants from '../../app/app.constants';
 
 const initialState = {
   mangas: [],
+  selectedManga: null,
 };
 
 const mangaReducer = (state = initialState, action) => {
@@ -11,6 +12,11 @@ const mangaReducer = (state = initialState, action) => {
         ...state,
         mangas: action.payload,
       };
+    case AppConstants.EVENTS.SET_SELECTED_MANGA_REDUX:
+      return {
+        ...state,
+        selectedManga: action.payload,
+      }
     case AppConstants.EVENTS.MANGA_MARKED_AS_FAVORITE: {
       const manga = state.mangas.find(
         (item) => item.name === action.payload.manga,

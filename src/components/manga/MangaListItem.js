@@ -11,11 +11,10 @@ import {
 
 import AppColors from '../../app/app.colors';
 import AppFonts from '../../app/app.fonts';
-import Icon from '../common/Icon';
+import FontMangApp from '../../assets/icons/icons-mangapp';
 import styles from './mangaListItem.styles';
 import * as MangaActions from '../../redux/actions/manga-actions';
-
-import FontMangApp from '../../assets/icons/icons-mangapp';
+import * as ChapterActions from '../../redux/actions/chapter-actions';
 
 class MangaListItem extends React.Component {
   constructor(props) {
@@ -23,6 +22,11 @@ class MangaListItem extends React.Component {
     this.state = {
       iconSize: new Animated.Value(AppFonts.t25.size),
     };
+  }
+
+  onMangaPress = () => {
+    const { getChapters, manga } = this.props;
+    getChapters(manga);
   }
 
   onFavoritePress = () => {
@@ -51,7 +55,11 @@ class MangaListItem extends React.Component {
     const { manga } = this.props;
     const { iconSize } = this.state;
     return (
-      <TouchableOpacity activeOpacity={0.8} style={styles.container}>
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={this.onMangaPress}
+        style={styles.container}
+      >
         <Image source={{ uri: manga.imgUrl }} style={styles.mangaImg} />
         <View style={styles.infosView}>
           <Text
@@ -107,11 +115,12 @@ class MangaListItem extends React.Component {
 }
 
 MangaListItem.propTypes = {
+  getChapters: PropTypes.func.isRequired,
   manga: PropTypes.object.isRequired,
   markMangaAsFavorite: PropTypes.func.isRequired,
 };
 
 export default connect(
   null,
-  MangaActions,
+  { ...MangaActions, ...ChapterActions },
 )(MangaListItem);

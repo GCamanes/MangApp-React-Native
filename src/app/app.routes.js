@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import AppConfig from './app.config';
 import AppConstants from './app.constants';
 
+import ChaptersPage from '../pages/chapters/ChaptersPage';
 import HomePage from '../pages/home/HomePage';
 import LoadingAppPage from '../pages/generic/LoadingAppPage';
 import LoginPage from '../pages/login/LoginPage';
@@ -31,6 +32,11 @@ class AppRoutes extends React.Component {
     return (
       <Router createReducer={this.reducerCreate}>
         <Stack key="root" {...AppConfig.navbarProps}>
+
+          <Scene
+            component={ChaptersPage}
+            key={AppConstants.ROUTES.chapters}
+          />
 
           <Scene
             component={HomePage}

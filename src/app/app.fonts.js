@@ -35,12 +35,13 @@ export default {
   t30: { ...base, size: normalize(30), lineHeight: lineHeight(base.size * 3) },
   t25: { ...base, size: normalize(25.3), lineHeight: lineHeight(base.size * 2.6) },
   t22: { ...base, size: normalize(22), lineHeight: lineHeight(base.size * 2.4) },
-  t19: { ...base, size: normalize(19.3), lineHeight: lineHeight(base.size * 2.2) }, // Stop Heading
-  t18: { ...base, size: normalize(18.7), lineHeight: lineHeight(base.size * 2) }, // Result Item
+  t19: { ...base, size: normalize(19.3), lineHeight: lineHeight(base.size * 2.2) },
+  t18: { ...base, size: normalize(18.7), lineHeight: lineHeight(base.size * 2) },
+  t17: { ...base, size: normalize(17.3), lineHeight: lineHeight(base.size * 1.9) },
   t16: { ...base, size: normalize(16), lineHeight: lineHeight(base.size * 1.8) },
-  t15: { ...base, size: normalize(15.3), lineHeight: lineHeight(base.size * 1.5) }, // Search Query
-  t13: { ...base, size: normalize(13.3), lineHeight: lineHeight(base.size * 1.25) }, // Result Item 2 - Secondary Times
-  t12: { ...base, size: normalize(12.7), lineHeight: lineHeight(base.size * 1.2) }, // Small Title
+  t15: { ...base, size: normalize(15.3), lineHeight: lineHeight(base.size * 1.5) },
+  t13: { ...base, size: normalize(13.3), lineHeight: lineHeight(base.size * 1.25) },
+  t12: { ...base, size: normalize(12.7), lineHeight: lineHeight(base.size * 1.2) },
   base: { ...base }, // Body/Main
   t11: { ...base, size: normalize(11), lineHeight: lineHeight(base.size * 0.85) },
   t10: { ...base, size: normalize(10.7), lineHeight: lineHeight(base.size * 0.8) },
