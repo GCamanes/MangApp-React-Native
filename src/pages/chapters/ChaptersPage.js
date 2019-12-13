@@ -32,8 +32,8 @@ class ChaptersPage extends Component {
           data={chapters}
           keyExtractor={(item) => item.id}
           numColumns={4}
-          initialNumToRender={50}
-          onEndReachedThreshold={50}
+          initialNumToRender={500}
+          onEndReachedThreshold={300}
           renderItem={({ item }) => (
             <ChapterListItem chapter={item} />
           )}

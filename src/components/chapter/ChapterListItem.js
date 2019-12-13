@@ -11,9 +11,7 @@ import { connect } from 'react-redux';
 import AppColors from '../../app/app.colors';
 import AppFonts from '../../app/app.fonts';
 import AppSizes from '../../app/app.sizes';
-
 import * as ChapterActions from '../../redux/actions/chapter-actions';
-import showAlert from '../../utils/showAlert';
 
 const styles = StyleSheet.create({
   container: {
@@ -32,24 +30,35 @@ const styles = StyleSheet.create({
 });
 
 export class ChapterListItem extends React.Component {
+  onPress = () => {
+    const { chapter, selectedManga } = this.props;
+    console.log('CHAPTER PRESS', selectedManga.name, chapter.id);
+  }
+
+  onLongPress = () => {
+    const { chapter, markChapterAsRead } = this.props;
+    markChapterAsRead(chapter.id, !chapter.isRead);
+  }
+
   render() {
     const { chapter } = this.props;
     return (
-      <TouchableOpacity activeOpacity={0.8} delayLongPress={1000}>
+      <TouchableOpacity
+        activeOpacity={0.8}
+        delayLongPress={2000} // need to be set to +1000 when remote debugger is on
+        onPress={this.onPress}
+        onLongPress={this.onLongPress}
+      >
         <View
           style={{
             ...styles.container,
-            backgroundColor: chapter.isRead
-              ? AppColors.palette.yellow
-              : AppColors.palette.white,
+            backgroundColor: chapter.isRead ? AppColors.palette.yellow : AppColors.palette.white,
           }}
         >
           <Text
             style={{
               ...styles.text,
-              color: chapter.isRead
-                ? AppColors.palette.black
-                : AppColors.palette.red,
+              color: chapter.isRead ? AppColors.palette.black : AppColors.palette.red,
             }}
           >
             {chapter.number}
@@ -66,9 +75,15 @@ ChapterListItem.propTypes = {
     number: PropTypes.string.isRequired,
     isRead: PropTypes.bool.isRequired,
   }).isRequired,
+  markChapterAsRead: PropTypes.func.isRequired,
+  selectedManga: PropTypes.object.isRequired,
 };
 
+const mapStateToProps = (state) => ({
+  selectedManga: state.manga.selectedManga,
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   { ...ChapterActions },
 )(ChapterListItem);
