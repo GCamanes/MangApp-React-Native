@@ -2,6 +2,7 @@ import firebase from 'react-native-firebase';
 import { Actions } from 'react-native-router-flux';
 import {
   put,
+  select,
   takeLatest,
 } from 'redux-saga/effects';
 import AppConstants from '../../app/app.constants';
@@ -37,17 +38,14 @@ export function* getChaptersSaga(action) {
       .collection(AppConstants.FIRESTORE.COLLECTION_MANGAS_CHAPTERS)
       .doc(action.payload.name)
       .get();
-    const promisesChapter = [];
-    chaptersData._data.chaptersList.map((item) => {
-      promisesChapter.push(
-        getItem(item, 'off').then((isRead) => ({
-          id: item,
-          number: getChapterNumber(item),
-          isRead: isRead === 'on',
-        })),
-      );
-    });
-    const chapters = yield Promise.all(promisesChapter);
+
+    const lastChapterRead = yield getItem(`${action.payload.name}${AppConstants.STORAGE.LAST_CHAPTER_READ}`);
+    console.log('LAST CHAPTER READ', lastChapterRead);
+    const chapters = chaptersData._data.chaptersList.map((item) => ({
+      id: item,
+      number: getChapterNumber(item),
+      isRead: lastChapterRead !== null && item <= lastChapterRead,
+    }));
     yield put({
       type: AppConstants.EVENTS.SET_CHAPTERS_REDUX,
       payload: chapters.sort((a, b) => b.number - a.number),
@@ -64,17 +62,31 @@ export function* getChaptersSaga(action) {
 
 export function* markChapterReadSaga(action) {
   try {
-    const { id, isRead, routerPop } = action.payload;
+    const {
+      manga,
+      id,
+      isRead,
+      routerPop,
+    } = action.payload;
+    console.log('CHAPTER MARK', action.payload);
     if (isRead) {
-      yield setItem(id, 'on');
+      yield setItem(`${manga.name}${AppConstants.STORAGE.LAST_CHAPTER_READ}`, id);
+      yield put({
+        type: AppConstants.EVENTS.CHAPTER_MARKED_AS_READ,
+        payload: id,
+      });
+      if (routerPop) Actions.pop();
     } else {
-      yield removeItem(id);
+      yield removeItem(`${manga.name}${AppConstants.STORAGE.LAST_CHAPTER_READ}`);
+      const getChapterState = (state) => state.chapter;
+      const ChapterState = yield select(getChapterState);
+      const previousIndex = ChapterState.chapters.findIndex((chap) => chap.id === id) + 1;
+      const newId = previousIndex < ChapterState.chapters.length ? ChapterState.chapters[previousIndex].id : null;
+      yield put({
+        type: AppConstants.EVENTS.CHAPTER_MARKED_AS_READ,
+        payload: newId,
+      });
     }
-    yield put({
-      type: AppConstants.EVENTS.CHAPTER_MARKED_AS_READ,
-      payload: action.payload,
-    });
-    if (routerPop) Actions.pop();
   } catch (error) {
     console.log('\nerror is markMangaFavoriteSaga', error);
     showAlert('Error while getting Firebase data', 'Error');

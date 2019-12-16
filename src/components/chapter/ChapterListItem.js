@@ -29,15 +29,15 @@ const styles = StyleSheet.create({
   },
 });
 
-export class ChapterListItem extends React.Component {
+class ChapterListItem extends React.Component {
   onPress = () => {
     const { chapter, selectedManga } = this.props;
     console.log('CHAPTER PRESS', selectedManga.name, chapter.id);
   }
 
   onLongPress = () => {
-    const { chapter, markChapterAsRead } = this.props;
-    markChapterAsRead(chapter.id, !chapter.isRead);
+    const { chapter, markChapterAsRead, selectedManga } = this.props;
+    markChapterAsRead(selectedManga, chapter.id, !chapter.isRead);
   }
 
   render() {
@@ -45,7 +45,7 @@ export class ChapterListItem extends React.Component {
     return (
       <TouchableOpacity
         activeOpacity={0.8}
-        delayLongPress={2000} // need to be set to +1000 when remote debugger is on
+        delayLongPress={1000} // need to be set to +1000 when remote debugger is on
         onPress={this.onPress}
         onLongPress={this.onLongPress}
       >

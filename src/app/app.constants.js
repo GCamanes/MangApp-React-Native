@@ -39,6 +39,8 @@ export default {
     loadingApp: 'loading-app',
     login: 'login',
   },
-  STORAGE: {},
+  STORAGE: {
+    LAST_CHAPTER_READ: '_lastChapterRead',
+  },
   WEBSERVICE: {},
 };

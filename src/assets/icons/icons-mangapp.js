@@ -15,6 +15,10 @@ const iconsMangApp = {
   sortAlphaDesc: '\u{e90d}',
   sortAmountAsc: '\u{e90e}',
   sortAmountDesc: '\u{e90f}',
+  backward: '\u{ea1a}',
+  forward: '\u{ea1b}',
+  backward2: '\u{ea1f}',
+  forward2: '\u{ea20}',
 };
 
 export default iconsMangApp;

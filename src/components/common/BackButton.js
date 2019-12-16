@@ -19,7 +19,6 @@ class BackButton extends Component {
       <View
         style={{
           flex: 1,
-          marginHorizontal: 5,
           flexDirection: 'row',
           alignItems: 'center',
         }}

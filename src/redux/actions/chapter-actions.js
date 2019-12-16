@@ -7,10 +7,11 @@ export function getChapters(manga) {
   };
 }
 
-export function markChapterAsRead(id, isRead, routerPop = false) {
+export function markChapterAsRead(manga, id, isRead, routerPop = false) {
   return {
     type: AppConstants.EVENTS.MARK_CHAPTER_READ_SAGA,
     payload: {
+      manga,
       id,
       isRead,
       routerPop,
