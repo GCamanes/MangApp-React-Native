@@ -14,6 +14,7 @@ import ChaptersPage from '../pages/chapters/ChaptersPage';
 import HomePage from '../pages/home/HomePage';
 import LoadingAppPage from '../pages/generic/LoadingAppPage';
 import LoginPage from '../pages/login/LoginPage';
+import ScansPage from '../pages/scans/ScansPage';
 import VersionContainer from '../components/common/VersionContainer';
 
 class AppRoutes extends React.Component {
@@ -56,6 +57,11 @@ class AppRoutes extends React.Component {
             component={LoginPage}
             hideNavBar
             key={AppConstants.ROUTES.login}
+          />
+
+          <Scene
+            component={ScansPage}
+            key={AppConstants.ROUTES.scans}
           />
 
         </Stack>

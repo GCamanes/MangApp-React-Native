@@ -2,6 +2,7 @@ import AppConstants from '../../app/app.constants';
 
 const initialState = {
   chapters: [],
+  selectedChapter: null,
 };
 
 const chapterReducer = (state = initialState, action) => {
@@ -11,6 +12,11 @@ const chapterReducer = (state = initialState, action) => {
         ...state,
         chapters: action.payload,
       };
+    case AppConstants.EVENTS.SET_SELECTED_CHAPTER_REDUX:
+      return {
+        ...state,
+        selectedChapter: action.payload,
+      }
     case AppConstants.EVENTS.CHAPTER_MARKED_AS_READ: {
       const newChapters = state.chapters.map((chap) => ({
         ...chap,

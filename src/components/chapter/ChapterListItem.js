@@ -12,6 +12,7 @@ import AppColors from '../../app/app.colors';
 import AppFonts from '../../app/app.fonts';
 import AppSizes from '../../app/app.sizes';
 import * as ChapterActions from '../../redux/actions/chapter-actions';
+import * as ScanActions from '../../redux/actions/scan-actions';
 
 const styles = StyleSheet.create({
   container: {
@@ -31,8 +32,8 @@ const styles = StyleSheet.create({
 
 class ChapterListItem extends React.Component {
   onPress = () => {
-    const { chapter, selectedManga } = this.props;
-    console.log('CHAPTER PRESS', selectedManga.name, chapter.id);
+    const { chapter, getScans, selectedManga } = this.props;
+    getScans(selectedManga, chapter);
   }
 
   onLongPress = () => {
@@ -45,7 +46,7 @@ class ChapterListItem extends React.Component {
     return (
       <TouchableOpacity
         activeOpacity={0.8}
-        delayLongPress={1000} // need to be set to +1000 when remote debugger is on
+        delayLongPress={1500} // need to be set to +1000 when remote debugger is on
         onPress={this.onPress}
         onLongPress={this.onLongPress}
       >
@@ -75,6 +76,7 @@ ChapterListItem.propTypes = {
     number: PropTypes.string.isRequired,
     isRead: PropTypes.bool.isRequired,
   }).isRequired,
+  getScans: PropTypes.func.isRequired,
   markChapterAsRead: PropTypes.func.isRequired,
   selectedManga: PropTypes.object.isRequired,
 };
@@ -85,5 +87,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  { ...ChapterActions },
+  { ...ChapterActions, ...ScanActions },
 )(ChapterListItem);

@@ -72,7 +72,6 @@ class ChaptersPage extends Component {
     }
     return (
       <View style={styles.container}>
-        <View style={{ height: 2, backgroundColor: 'grey' }} />
         <View style={styles.pagesView}>
           <View style={styles.iconView}>
             {page > 0 && (
@@ -101,7 +100,6 @@ class ChaptersPage extends Component {
             )}
           </View>
         </View>
-        <View style={{ height: 2, backgroundColor: 'grey' }} />
         <FlatList
           ref={(node) => this.flatList = node}
           columnWrapperStyle={{ justifyContent: 'space-between' }}
