@@ -34,7 +34,11 @@ class ScansPage extends Component {
     }
   }
 
-  logOutZoomState = (event, gestureState, zoomableViewEventObject) => {
+  onZoomAfter = (event, gestureState, zoomableViewEventObject) => {
+    this.setState({ scrollEnabled: zoomableViewEventObject.zoomLevel === 1 });
+  }
+
+  onDoubleTapAfter = (event, gestureState, zoomableViewEventObject) => {
     this.setState({ scrollEnabled: zoomableViewEventObject.zoomLevel === 1 });
   }
 
@@ -69,7 +73,8 @@ class ScansPage extends Component {
               minZoom={1}
               zoomStep={1}
               initialZoom={1}
-              onZoomAfter={this.logOutZoomState}
+              onZoomAfter={this.onZoomAfter}
+              onDoubleTapAfter={this.onDoubleTapAfter}
             >
               {scan.infos ? (
                 <Image source={{ uri: scan.url }} style={{ height: scan.infos.height, width: scan.infos.width }} />
