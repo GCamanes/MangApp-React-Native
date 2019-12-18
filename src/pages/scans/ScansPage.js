@@ -1,26 +1,35 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {
+  ActivityIndicator,
   Image,
+  ScrollView,
   View,
 } from 'react-native';
 import { connect } from 'react-redux';
 
 import AppConstants from '../../app/app.constants';
-import styles from './scansPage.styles';
+import AppColors from '../../app/app.colors';
+import AppSizes from '../../app/app.sizes';
 import AppStyles from '../../app/app.styles';
 import CustomLoader from '../../components/common/CustomLoader';
+import styles from './scansPage.styles';
+import * as ScanActions from '../../redux/actions/scan-actions';
 
 class ScansPage extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {};
+  onScroll = (e) => {
+    const { getScanInfos, scans } = this.props;
+    let offset = e.nativeEvent.contentOffset.x / (AppSizes.screen.width);
+    offset = parseFloat((offset * 100).toFixed(0)) / 100;
+    if (Number.isInteger(offset)) {
+      console.log('SCAN INDEX', offset);
+      getScanInfos(scans[offset].url, offset);
+    }
   }
 
   render() {
     const { loadingStatus, scans } = this.props;
-    console.log('SCANS', scans);
+
     if (loadingStatus.loading) {
       return (
         <View style={AppStyles.loadingView}>
@@ -28,14 +37,34 @@ class ScansPage extends Component {
         </View>
       );
     }
+
     return (
       <View style={styles.container}>
+        <ScrollView
+          horizontal
+          onScroll={this.onScroll}
+          pagingEnabled
+          ref={(node) => this.scroll = node}
+          showsHorizontalScrollIndicator={false}
+          scrollEventThrottle={50}
+        >
+          {scans.map((scan, index) => (
+            <View style={styles.viewScan} key={`scan_${index}`}>
+              {scan.infos ? (
+                <Image source={{ uri: scan.url }} style={{ height: scan.infos.height, width: scan.infos.width }} />
+              ) : (
+                <ActivityIndicator size="large" color={AppColors.palette.red} />
+              )}
+            </View>
+          ))}
+        </ScrollView>
       </View>
     );
   }
 }
 
 ScansPage.propTypes = {
+  getScanInfos: PropTypes.func.isRequired,
   loadingStatus: PropTypes.object,
   scans: PropTypes.array.isRequired,
 };
@@ -49,4 +78,4 @@ const mapStateToProps = (state) => ({
   scans: state.scan.scans,
 });
 
-export default connect(mapStateToProps, null)(ScansPage);
+export default connect(mapStateToProps, ScanActions)(ScansPage);

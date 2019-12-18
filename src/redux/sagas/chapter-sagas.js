@@ -51,8 +51,8 @@ export function* getChaptersSaga(action) {
       payload: chapters.sort((a, b) => b.number - a.number),
     });
   } catch (error) {
-    console.log('\nerror is getChaptersSaga', error);
-    showAlert('Error while getting Firebase data', 'Error');
+    console.log('\nerror in getChaptersSaga', error);
+    showAlert('Error getting chapters data', 'Error');
   }
   yield put({
     type: AppConstants.EVENTS.SHOW_LOADING_REDUCER,
@@ -88,8 +88,8 @@ export function* markChapterReadSaga(action) {
       });
     }
   } catch (error) {
-    console.log('\nerror is markMangaFavoriteSaga', error);
-    showAlert('Error while getting Firebase data', 'Error');
+    console.log('\nerror in markChapterReadSaga', error);
+    showAlert('Error chapter as read', 'Error');
   }
 }
 

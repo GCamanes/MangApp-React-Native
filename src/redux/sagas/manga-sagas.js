@@ -38,8 +38,8 @@ export function* getMangasSaga() {
       payload: mangas,
     });
   } catch (error) {
-    console.log('\nerror is getMangasSaga', error);
-    showAlert('Error while getting Firebase data', 'Error');
+    console.log('\nerror in getMangasSaga', error);
+    showAlert('Error getting manga data', 'Error');
   }
   yield put({
     type: AppConstants.EVENTS.SHOW_LOADING_REDUCER,
@@ -60,7 +60,8 @@ export function* markMangaFavoriteSaga(action) {
       payload: { manga: payload.manga, isFavorite: payload.value },
     });
   } catch (error) {
-    console.log('\nerror is markMangaFavoriteSaga', error);
+    console.log('\nerror in markMangaFavoriteSaga', error);
+    showAlert('Error manga as favorite', 'Error');
   }
 }
 

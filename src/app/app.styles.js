@@ -13,6 +13,7 @@ const AppStyles = {
     backgroundColor: AppColors.palette.black,
     borderBottomWidth: 0,
     elevation: 0,
+    height: 50,
   },
   navbarTitle: {
     color: AppColors.palette.white,

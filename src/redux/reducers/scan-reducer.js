@@ -11,6 +11,15 @@ const scanReducer = (state = initialState, action) => {
         ...state,
         scans: action.payload,
       };
+    case AppConstants.EVENTS.UPDATE_SCAN_INFOS_REDUX: {
+      const { infos, index } = action.payload;
+      const newScans = [...state.scans];
+      newScans[index].infos = infos;
+      return {
+        ...state,
+        scans: newScans,
+      };
+    }
     case AppConstants.EVENTS.CLEAR_SCANS_REDUCER:
       return {
         ...initialState,
