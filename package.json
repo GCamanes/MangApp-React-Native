@@ -11,6 +11,7 @@
     "postversion": "react-native-version"
   },
   "dependencies": {
+    "@dudigital/react-native-zoomable-view": "^1.0.15",
     "@react-native-community/async-storage": "^1.6.3",
     "prop-types": "^15.7.2",
     "react": "16.9.0",

@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import ReactNativeZoomableView from '@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView';
 import React, { Component } from 'react';
 import {
   ActivityIndicator,
@@ -17,18 +18,29 @@ import styles from './scansPage.styles';
 import * as ScanActions from '../../redux/actions/scan-actions';
 
 class ScansPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      scrollEnabled: true,
+    };
+  }
+
   onScroll = (e) => {
     const { getScanInfos, scans } = this.props;
     let offset = e.nativeEvent.contentOffset.x / (AppSizes.screen.width);
     offset = parseFloat((offset * 100).toFixed(0)) / 100;
     if (Number.isInteger(offset)) {
-      console.log('SCAN INDEX', offset);
       getScanInfos(scans[offset].url, offset);
     }
   }
 
+  logOutZoomState = (event, gestureState, zoomableViewEventObject) => {
+    this.setState({ scrollEnabled: zoomableViewEventObject.zoomLevel === 1 });
+  }
+
   render() {
     const { loadingStatus, scans } = this.props;
+    const { scrollEnabled } = this.state;
 
     if (loadingStatus.loading) {
       return (
@@ -47,15 +59,24 @@ class ScansPage extends Component {
           ref={(node) => this.scroll = node}
           showsHorizontalScrollIndicator={false}
           scrollEventThrottle={50}
+          scrollEnabled={scrollEnabled}
         >
           {scans.map((scan, index) => (
-            <View style={styles.viewScan} key={`scan_${index}`}>
+            <ReactNativeZoomableView
+              style={styles.viewScan}
+              key={`scan_${index}`}
+              maxZoom={2}
+              minZoom={1}
+              zoomStep={1}
+              initialZoom={1}
+              onZoomAfter={this.logOutZoomState}
+            >
               {scan.infos ? (
                 <Image source={{ uri: scan.url }} style={{ height: scan.infos.height, width: scan.infos.width }} />
               ) : (
                 <ActivityIndicator size="large" color={AppColors.palette.red} />
               )}
-            </View>
+            </ReactNativeZoomableView>
           ))}
         </ScrollView>
       </View>
