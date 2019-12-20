@@ -7,7 +7,7 @@ import AppSizes from '../../app/app.sizes';
 import Icon from './Icon';
 import backHandler from '../../utils/back-handler';
 
-class BackButton extends Component {
+class LogoutButton extends Component {
   onPress = () => {
     const { routerState } = this.props;
     backHandler(routerState);
@@ -29,14 +29,14 @@ class BackButton extends Component {
             alignItems: 'center',
           }}
         >
-          <Icon name="arrowLeft" />
+          <Icon name="switch" />
         </TouchableOpacity>
       </View>
     );
   }
 }
 
-BackButton.propTypes = {
+LogoutButton.propTypes = {
   routerState: PropTypes.object.isRequired,
 };
 
@@ -44,4 +44,4 @@ const mapStateToProps = (state) => ({
   routerState: state.router.routerState,
 });
 
-export default connect(mapStateToProps, null)(BackButton);
+export default connect(mapStateToProps, null)(LogoutButton);

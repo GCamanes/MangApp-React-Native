@@ -14,6 +14,7 @@ import ChaptersPage from '../pages/chapters/ChaptersPage';
 import HomePage from '../pages/home/HomePage';
 import LoadingAppPage from '../pages/generic/LoadingAppPage';
 import LoginPage from '../pages/login/LoginPage';
+import LogoutButton from '../components/common/LogoutButton';
 import ScansPage from '../pages/scans/ScansPage';
 import VersionContainer from '../components/common/VersionContainer';
 
@@ -43,6 +44,7 @@ class AppRoutes extends React.Component {
             component={HomePage}
             key={AppConstants.ROUTES.home}
             title="MangApp"
+            renderBackButton={() => <LogoutButton />}
             renderRightButton={<VersionContainer />}
           />
 
