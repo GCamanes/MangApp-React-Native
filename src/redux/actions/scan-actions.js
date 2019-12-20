@@ -16,3 +16,10 @@ export function getScanInfos(url, index) {
     payload: { url, index },
   };
 }
+
+export function setPageCounter(page, last) {
+  return {
+    type: AppConstants.EVENTS.SET_PAGE_COUNTER_REDUX,
+    payload: { page, last },
+  };
+}

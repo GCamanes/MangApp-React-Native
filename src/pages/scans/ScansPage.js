@@ -26,11 +26,12 @@ class ScansPage extends Component {
   }
 
   onScroll = (e) => {
-    const { getScanInfos, scans } = this.props;
+    const { getScanInfos, scans, setPageCounter } = this.props;
     let offset = e.nativeEvent.contentOffset.x / (AppSizes.screen.width);
     offset = parseFloat((offset * 100).toFixed(0)) / 100;
     if (Number.isInteger(offset)) {
       getScanInfos(scans[offset].url, offset);
+      setPageCounter(offset + 1, scans.length);
     }
   }
 
@@ -93,6 +94,7 @@ ScansPage.propTypes = {
   getScanInfos: PropTypes.func.isRequired,
   loadingStatus: PropTypes.object,
   scans: PropTypes.array.isRequired,
+  setPageCounter: PropTypes.func.isRequired,
 };
 
 ScansPage.defaultProps = {

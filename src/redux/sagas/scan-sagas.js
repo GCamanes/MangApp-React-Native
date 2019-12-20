@@ -30,6 +30,10 @@ export function* getScansSaga(action) {
 
     const scans = scansData._data.pages;
     yield put({
+      type: AppConstants.EVENTS.SET_PAGE_COUNTER_REDUX,
+      payload: { page: 1, last: scans.length },
+    });
+    yield put({
       type: AppConstants.EVENTS.SET_SCANS_REDUX,
       payload: scans.map((data) => ({ url: data.url, infos: null })),
     });

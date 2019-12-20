@@ -7,9 +7,7 @@ import AppColors from '../../app/app.colors';
 import AppFonts from '../../app/app.fonts';
 
 const VersionContainer = ({ version }) => (
-  <View
-    style={{ paddingHorizontal: 10 }}
-  >
+  <View style={{ paddingHorizontal: 10 }}>
     <Text
       style={{
         color: AppColors.palette.white,

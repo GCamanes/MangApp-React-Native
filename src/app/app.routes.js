@@ -15,6 +15,7 @@ import HomePage from '../pages/home/HomePage';
 import LoadingAppPage from '../pages/generic/LoadingAppPage';
 import LoginPage from '../pages/login/LoginPage';
 import LogoutButton from '../components/common/LogoutButton';
+import PageCounter from '../components/scans/PageCounter';
 import ScansPage from '../pages/scans/ScansPage';
 import VersionContainer from '../components/common/VersionContainer';
 
@@ -64,6 +65,7 @@ class AppRoutes extends React.Component {
           <Scene
             component={ScansPage}
             key={AppConstants.ROUTES.scans}
+            renderRightButton={<PageCounter />}
           />
 
         </Stack>

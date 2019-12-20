@@ -12,6 +12,9 @@ export default function backHandler(routerState) {
       { text: 'YES', onPress: () => store.dispatch({ type: AppConstants.EVENTS.LOGOUT_USER_SAGA }) },
     ]);
 
+  } else if (routes[routes.length - 1] === AppConstants.ROUTES.scans) {
+    Actions.pop();
+    store.dispatch({ type: AppConstants.EVENTS.SET_PAGE_COUNTER_REDUX, payload: null });
   } else {
     Actions.pop();
   }
