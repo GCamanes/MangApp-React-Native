@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
   pagesView: {
     flexDirection: 'row',
     height: 40,
-    backgroundColor: AppColors.palette.black,
+    backgroundColor: AppColors.palette.blackSmoke,
   },
   iconView: {
     width: AppSizes.screen.width * 0.15,
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
-    fontSize: AppFonts.t17.size,
+    fontSize: AppFonts.t19.size,
     fontWeight: 'bold',
     color: AppColors.palette.white,
   },
