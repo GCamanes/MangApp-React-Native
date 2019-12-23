@@ -67,64 +67,16 @@ class LoginPage extends Component {
     const onError = () => {
       this.setState({ loading: false });
       Animated.sequence([
-        Animated.timing(
-          loginMarginRight,
-          {
-            toValue: 150,
-            duration: 50,
-          },
-        ),
-        Animated.timing(
-          loginMarginRight,
-          {
-            toValue: 0,
-            duration: 50,
-          },
-        ),
-        Animated.timing(
-          loginMarginLeft,
-          {
-            toValue: 150,
-            duration: 50,
-          },
-        ),
-        Animated.timing(
-          loginMarginLeft,
-          {
-            toValue: 0,
-            duration: 50,
-          },
-        ),
-        Animated.timing(
-          loginMarginRight,
-          {
-            toValue: 75,
-            duration: 50,
-          },
-        ),
-        Animated.timing(
-          loginMarginRight,
-          {
-            toValue: 0,
-            duration: 50,
-          },
-        ),
-        Animated.timing(
-          loginMarginLeft,
-          {
-            toValue: 75,
-            duration: 50,
-          },
-        ),
-        Animated.timing(
-          loginMarginLeft,
-          {
-            toValue: 0,
-            duration: 50,
-          },
-        ),
+        Animated.timing(loginMarginRight, { toValue: 150, duration: 50 }),
+        Animated.timing(loginMarginRight, { toValue: 0, duration: 50 }),
+        Animated.timing(loginMarginLeft, { toValue: 150, duration: 50 }),
+        Animated.timing(loginMarginLeft, { toValue: 0, duration: 50 }),
+        Animated.timing(loginMarginRight, { toValue: 75, duration: 50 }),
+        Animated.timing(loginMarginRight, { toValue: 0, duration: 50 }),
+        Animated.timing(loginMarginLeft, { toValue: 75, duration: 50 }),
+        Animated.timing(loginMarginLeft, { toValue: 0, duration: 50 }),
       ]).start();
-    }
+    };
 
     const onSuccess = async () => {
       await Animated.parallel([
@@ -137,7 +89,7 @@ class LoginPage extends Component {
           duration: 500,
         }),
       ]).start();
-    }
+    };
 
     this.setState({ loading: true });
     login(mail, password, onSuccess, onError);
