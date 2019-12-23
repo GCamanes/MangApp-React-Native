@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {
+  ActivityIndicator,
   SectionList,
   View,
 } from 'react-native';
@@ -8,12 +9,12 @@ import { connect } from 'react-redux';
 
 import AppConstants from '../../app/app.constants';
 import AppStyles from '../../app/app.styles';
-import CustomLoader from '../../components/common/CustomLoader';
 import MangaListItem from '../../components/manga/MangaListItem';
 import MangaSectionTitle from '../../components/manga/MangaSectionTitle';
 import SearchBar from '../../components/manga/SearchBar';
 import styles from './homePage.styles';
 import * as MangaActions from '../../redux/actions/manga-actions';
+import AppColors from '../../app/app.colors';
 
 class HomePage extends Component {
   constructor(props) {
@@ -44,7 +45,7 @@ class HomePage extends Component {
     if (loadingStatus.loading) {
       return (
         <View style={AppStyles.loadingView}>
-          <CustomLoader />
+          <ActivityIndicator size="large" color={AppColors.palette.red} />
         </View>
       );
     }

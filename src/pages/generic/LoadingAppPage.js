@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {
+  ActivityIndicator,
   Image,
   StyleSheet,
   Text,
@@ -11,7 +12,6 @@ import { connect } from 'react-redux';
 import AppColors from '../../app/app.colors';
 import AppFonts from '../../app/app.fonts';
 import AppSizes, { normalize } from '../../app/app.sizes';
-import CustomLoader from '../../components/common/CustomLoader';
 import * as AppActions from '../../redux/actions/app-actions';
 import images from '../../assets/images';
 
@@ -68,7 +68,7 @@ class LoadingPage extends Component {
         />
         <View style={styles.bottomView}>
           {loading && (
-            <CustomLoader />
+            <ActivityIndicator size="large" color={AppColors.palette.red} />
           )}
           <Text style={styles.bottomText}>
             {`Version ${version}`}

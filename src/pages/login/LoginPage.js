@@ -17,6 +17,7 @@ import AppSizes, { normalize } from '../../app/app.sizes';
 import styles from './loginPage.styles';
 import images from '../../assets/images';
 import * as UserActions from '../../redux/actions/user-actions';
+import Icon from '../../components/common/Icon';
 
 class LoginPage extends Component {
   constructor(props) {
@@ -25,9 +26,11 @@ class LoginPage extends Component {
       mail: '',
       password: '',
       loading: false,
+      hidingPassword: true,
       loginOpacity: new Animated.Value(0),
       loginTop: new Animated.Value(AppSizes.screen.height),
-      loginWidth: new Animated.Value(AppSizes.screen.width60),
+      loginMarginLeft: new Animated.Value(0),
+      loginMarginRight: new Animated.Value(0),
     };
   }
 
@@ -45,26 +48,82 @@ class LoginPage extends Component {
     ]).start();
   }
 
+  onHidingPasswordPress = () => {
+    const { hidingPassword } = this.state;
+    this.setState({ hidingPassword: !hidingPassword });
+  }
+
   onLoginPress = async () => {
     const {
+      loginMarginLeft,
+      loginMarginRight,
       loginOpacity,
       loginTop,
-      loginWidth,
       mail,
       password,
     } = this.state;
     const { login } = this.props;
 
     const onError = () => {
-      Animated.timing(
-        loginWidth,
-        {
-          toValue: AppSizes.screen.width60,
-          duration: 300,
-          easing: Easing.bounce,
-        },
-      ).start();
       this.setState({ loading: false });
+      Animated.sequence([
+        Animated.timing(
+          loginMarginRight,
+          {
+            toValue: 150,
+            duration: 50,
+          },
+        ),
+        Animated.timing(
+          loginMarginRight,
+          {
+            toValue: 0,
+            duration: 50,
+          },
+        ),
+        Animated.timing(
+          loginMarginLeft,
+          {
+            toValue: 150,
+            duration: 50,
+          },
+        ),
+        Animated.timing(
+          loginMarginLeft,
+          {
+            toValue: 0,
+            duration: 50,
+          },
+        ),
+        Animated.timing(
+          loginMarginRight,
+          {
+            toValue: 75,
+            duration: 50,
+          },
+        ),
+        Animated.timing(
+          loginMarginRight,
+          {
+            toValue: 0,
+            duration: 50,
+          },
+        ),
+        Animated.timing(
+          loginMarginLeft,
+          {
+            toValue: 75,
+            duration: 50,
+          },
+        ),
+        Animated.timing(
+          loginMarginLeft,
+          {
+            toValue: 0,
+            duration: 50,
+          },
+        ),
+      ]).start();
     }
 
     const onSuccess = async () => {
@@ -81,22 +140,17 @@ class LoginPage extends Component {
     }
 
     this.setState({ loading: true });
-    await Animated.timing(
-      loginWidth,
-      {
-        toValue: 40,
-        duration: 300,
-      },
-    ).start();
     login(mail, password, onSuccess, onError);
   }
 
   render() {
     const {
+      hidingPassword,
       loading,
+      loginMarginLeft,
+      loginMarginRight,
       loginOpacity,
       loginTop,
-      loginWidth,
       mail,
       password,
     } = this.state;
@@ -107,29 +161,53 @@ class LoginPage extends Component {
           source={images.logo_original}
           style={{ width: AppSizes.screen.widthHalf, height: AppSizes.screen.widthHalf }}
         />
-        <TextInput
-          value={mail}
-          onChangeText={(text) => this.setState({ mail: text })}
-          placeholder="Mail"
-          selectionColor={AppColors.palette.red}
-          keyboardType="email-address"
-          style={styles.input}
-          autoCapitalize="none"
-        />
-        <TextInput
-          value={password}
-          onChangeText={(text) => this.setState({ password: text })}
-          placeholder="Password"
-          selectionColor={AppColors.palette.red}
-          secureTextEntry
-          style={styles.input}
-          autoCapitalize="none"
-        />
+        <View style={styles.inputView}>
+          <Text style={styles.inputLabel}>
+            MAIL
+          </Text>
+          <TextInput
+            value={mail}
+            onChangeText={(text) => this.setState({ mail: text })}
+            placeholder="luffy.D.monkey@one-piece.fr"
+            placeholderTextColor={AppColors.palette.greyLight}
+            selectionColor={AppColors.palette.red}
+            keyboardType="email-address"
+            style={styles.input}
+            autoCapitalize="none"
+            onSubmitEditing={() => { this.passwordTextInput.focus(); }}
+            blurOnSubmit={false}
+            returnKeyType="next"
+          />
+        </View>
+        <View style={styles.inputView}>
+          <Text style={styles.inputLabel}>
+            PASSWORD
+          </Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <TextInput
+              ref={(input) => { this.passwordTextInput = input; }}
+              value={password}
+              onChangeText={(text) => this.setState({ password: text })}
+              placeholder="*****"
+              selectionColor={AppColors.palette.red}
+              placeholderTextColor={AppColors.palette.greyLight}
+              secureTextEntry={hidingPassword}
+              style={{ ...styles.input, flex: 1, marginRight: 5 }}
+              autoCapitalize="none"
+              onSubmitEditing={this.onLoginPress}
+              returnKeyType="go"
+            />
+            <Icon
+              name={hidingPassword ? 'viewHide' : 'viewShow'}
+              onPress={this.onHidingPasswordPress}
+              style={{ color: AppColors.palette.greyDark }}
+            />
+          </View>
+        </View>
 
         <Animated.View
           style={{
             ...styles.loginButton,
-            width: loginWidth,
             opacity: loginOpacity,
             top: loginTop,
           }}
@@ -139,11 +217,17 @@ class LoginPage extends Component {
             style={styles.loginTouchable}
           >
             {(!loading) ? (
-              <Text style={styles.loginText}>
-                Login
-              </Text>
+              <Animated.Text
+                style={{
+                  ...styles.loginText,
+                  marginLeft: loginMarginLeft,
+                  marginRight: loginMarginRight,
+                }}
+              >
+                LOGIN
+              </Animated.Text>
             ) : (
-              <ActivityIndicator size="large" color={AppColors.palette.red} />
+              <ActivityIndicator size="large" color={AppColors.palette.white} />
             )}
 
           </TouchableOpacity>
