@@ -15,6 +15,7 @@ const iconsMangApp = {
   cheveronOutlineUp: '\u{e90d}',
   cheveronRight: '\u{e90e}',
   cheveronUp: '\u{e90f}',
+  close: '\u{e91a}',
   heart: '\u{e910}',
   home: '\u{e911}',
   key: '\u{e912}',
