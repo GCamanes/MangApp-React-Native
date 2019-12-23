@@ -1,6 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { connect } from 'react-redux';
 
 import AppColors from '../../app/app.colors';
@@ -55,8 +60,8 @@ const PageCounter = ({ pageInfo }) => (
 
 PageCounter.propTypes = {
   pageInfo: PropTypes.shape({
-    page: PropTypes.string.isRequired,
-    last: PropTypes.string.isRequired,
+    page: PropTypes.number.isRequired,
+    last: PropTypes.number.isRequired,
   }),
 };
 
