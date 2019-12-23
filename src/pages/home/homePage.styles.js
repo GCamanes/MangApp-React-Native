@@ -15,7 +15,8 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: AppColors.palette.blackSmoke,
+    backgroundColor: AppColors.palette.black,
+    paddingHorizontal: 15,
   },
   filterAnimatedView: {
     backgroundColor: AppColors.palette.red,
@@ -40,11 +41,10 @@ const styles = StyleSheet.create({
   header: {
     alignItems: 'center',
     backgroundColor: AppColors.palette.black,
-    paddingHorizontal: 15,
     paddingVertical: 20,
   },
   icon: {
-    fontSize: AppFonts.t19.size,
+    fontSize: AppFonts.t22.size,
     color: AppColors.palette.white,
   },
   searchTextInput: {

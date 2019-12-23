@@ -6,7 +6,7 @@ const AppStyles = {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: AppColors.palette.blackSmoke,
+    backgroundColor: AppColors.palette.black,
   },
   // NavBar styles
   navbar: {

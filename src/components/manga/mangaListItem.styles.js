@@ -1,43 +1,36 @@
 import { StyleSheet } from 'react-native';
 
 import AppColors from '../../app/app.colors';
+import AppFonts from '../../app/app.fonts';
 import AppSizes from '../../app/app.sizes';
+
+const imgHeight = AppSizes.screen.width * 0.43 * 1.5;
+const imgWidth = AppSizes.screen.width * 0.43;
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    backgroundColor: AppColors.palette.whiteSmoke,
-    borderRadius: 8,
-    flex: 1,
-    alignItems: 'center',
-    marginHorizontal: 5,
-    marginVertical: 5,
-    padding: 5,
-  },
-  infosView: {
-    flex: 5,
-    marginRight: 5,
-  },
-  favoriteView: {
-    flex: 1.5,
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100%',
-  },
-  favoriteTouchableView: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-  },
-  mangaImg: {
-    height: AppSizes.screen.width * 0.21,
-    width: AppSizes.screen.width * 0.14,
-    marginRight: 5,
+    backgroundColor: AppColors.palette.white,
+    marginBottom: 20,
     borderRadius: 5,
   },
-  icon: {
-    fontFamily: 'mangapp',
+  gradientView: {
+    height: imgHeight * 0.7,
+    width: imgWidth,
+    position: 'absolute',
+    bottom: -5,
+    paddingHorizontal: 10,
+    paddingBottom: 20,
+    justifyContent: 'flex-end',
+  },
+  mangaImg: {
+    height: imgHeight,
+    width: imgWidth,
+    borderRadius: 5,
+  },
+  text: {
+    fontSize: AppFonts.t16.size,
+    color: AppColors.palette.white,
+    fontWeight: 'bold',
   },
 });
 

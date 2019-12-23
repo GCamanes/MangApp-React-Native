@@ -4,7 +4,7 @@ import {
   ActivityIndicator,
   Alert,
   Animated,
-  SectionList,
+  FlatList,
   Text,
   TextInput,
   TouchableOpacity,
@@ -18,7 +18,6 @@ import AppSizes from '../../app/app.sizes';
 import AppStyles from '../../app/app.styles';
 import Icon from '../../components/common/Icon';
 import MangaListItem from '../../components/manga/MangaListItem';
-import MangaSectionTitle from '../../components/manga/MangaSectionTitle';
 import styles from './homePage.styles';
 import * as MangaActions from '../../redux/actions/manga-actions';
 import * as UserActions from '../../redux/actions/user-actions';
@@ -112,7 +111,7 @@ class HomePage extends Component {
               selectionColor={AppColors.palette.red}
               autoCapitalize="none"
             />
-            <Icon name="power" onPress={this.onLogoutPress} style={styles.icon} />
+            <Icon name="power" onPress={this.onLogoutPress} style={{ ...styles.icon, marginLeft: 10 }} />
           </View>
 
           {/* bottom of header: filter animated view */}
@@ -166,28 +165,16 @@ class HomePage extends Component {
         </View>
 
         {/* Mangas list */}
-        <SectionList
+        <FlatList
+          columnWrapperStyle={{ justifyContent: 'space-between' }}
+          numColumns={2}
+          data={filter === 'favorites'
+            ? mangas.filter((manga) => manga.name.toLowerCase().includes(search) && manga.isFavorite)
+            : mangas.filter((manga) => manga.name.toLowerCase().includes(search))}
           initialNumToRender={30}
           keyExtractor={(item) => item.name}
           onEndReachedThreshold={30}
           renderItem={({ item }) => <MangaListItem manga={item} />}
-          renderSectionHeader={({ section: { title } }) => (
-            <MangaSectionTitle title={title} />
-          )}
-          sections={[
-            {
-              title: 'Favorites',
-              data: mangas.filter(
-                (item) => item.name.toLowerCase().includes(search) && item.isFavorite,
-              ),
-            },
-            {
-              title: 'Others',
-              data: mangas.filter(
-                (item) => item.name.toLowerCase().includes(search) && !item.isFavorite,
-              ),
-            },
-          ]}
         />
       </View>
     );

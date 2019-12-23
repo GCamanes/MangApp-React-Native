@@ -9,6 +9,7 @@ const AppColors = {
     greyLightTransparent: 'rgba(202, 202, 202, 0.5)',
     greyDark: '#7A7A7A',
     red: '#ED1E24',
+    transparent: 'rgba(255, 255, 255, 0)',
     white: '#ffffff',
     whiteSmoke: '#F6F6F6',
     yellow: '#FED022',
