@@ -6,13 +6,10 @@ import {
   Image,
   Text,
   TouchableOpacity,
-  View,
 } from 'react-native';
 
 import AppColors from '../../app/app.colors';
-import AppFonts from '../../app/app.fonts';
 import styles from './mangaListItem.styles';
-import * as MangaActions from '../../redux/actions/manga-actions';
 import * as ChapterActions from '../../redux/actions/chapter-actions';
 
 class MangaListItem extends React.Component {
@@ -46,10 +43,9 @@ class MangaListItem extends React.Component {
 MangaListItem.propTypes = {
   getChapters: PropTypes.func.isRequired,
   manga: PropTypes.object.isRequired,
-  markMangaAsFavorite: PropTypes.func.isRequired,
 };
 
 export default connect(
   null,
-  { ...MangaActions, ...ChapterActions },
+  ChapterActions,
 )(MangaListItem);

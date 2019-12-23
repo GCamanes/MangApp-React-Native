@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
   },
   filterAnimatedView: {
     backgroundColor: AppColors.palette.red,
+    width: AppSizes.screen.widthQuarter,
     height: '100%',
     borderRadius: 50,
   },

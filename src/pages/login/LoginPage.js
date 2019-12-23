@@ -120,7 +120,7 @@ class LoginPage extends Component {
           <TextInput
             value={mail}
             onChangeText={(text) => this.setState({ mail: text })}
-            placeholder="luffy.D.monkey@one-piece.fr"
+            placeholder="luffy.D.monkey@one-piece.com"
             placeholderTextColor={AppColors.palette.greyLight}
             selectionColor={AppColors.palette.red}
             keyboardType="email-address"

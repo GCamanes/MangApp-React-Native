@@ -2,7 +2,6 @@ import firebase from 'react-native-firebase';
 import { Actions } from 'react-native-router-flux';
 import {
   delay,
-  put,
   takeLatest,
 } from 'redux-saga/effects';
 
@@ -22,7 +21,7 @@ export function* loginUserSaga(action) {
     }
     yield firebase.auth().signInWithEmailAndPassword(mail, password);
     yield onSuccess();
-    yield delay(1000);
+    yield delay(500);
     Actions.reset(AppConstants.ROUTES.home);
   } catch (error) {
     console.log('ERROR LOGIN USER', error);

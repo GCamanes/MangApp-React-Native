@@ -27,8 +27,9 @@ class HomePage extends Component {
     super(props);
 
     this.state = {
-      animatedFilterWidth: new Animated.Value(AppSizes.screen.widthQuarter),
       animatedFilterXPosition: new Animated.Value(0),
+      animatedFilterAllColor: new Animated.Value(0),
+      animatedFilterFavoritesColor: new Animated.Value(1),
       filter: 'all',
       search: '',
     };
@@ -52,27 +53,33 @@ class HomePage extends Component {
   };
 
   onFilterAllPressed = () => {
-    const { animatedFilterWidth, animatedFilterXPosition, filter } = this.state;
+    const {
+      animatedFilterAllColor,
+      animatedFilterFavoritesColor,
+      animatedFilterXPosition,
+      filter,
+    } = this.state;
     if (filter !== 'all') {
-      Animated.sequence([
-        Animated.parallel([
-          Animated.timing(animatedFilterWidth, { toValue: AppSizes.screen.widthHalf, duration: 200 }),
-          Animated.timing(animatedFilterXPosition, { toValue: 0, duration: 200 }),
-        ]),
-        Animated.timing(animatedFilterWidth, { toValue: AppSizes.screen.widthQuarter, duration: 200 }),
+      Animated.parallel([
+        Animated.timing(animatedFilterXPosition, { toValue: 0, duration: 300 }),
+        Animated.timing(animatedFilterAllColor, { toValue: 0, duration: 300 }),
+        Animated.timing(animatedFilterFavoritesColor, { toValue: 1, duration: 300 }),
       ]).start(() => this.setState({ filter: 'all' }));
     }
   };
 
   onFilterFavoritesPressed = () => {
-    const { animatedFilterWidth, animatedFilterXPosition, filter } = this.state;
+    const {
+      animatedFilterAllColor,
+      animatedFilterFavoritesColor,
+      animatedFilterXPosition,
+      filter,
+    } = this.state;
     if (filter !== 'favorites') {
-      Animated.sequence([
-        Animated.timing(animatedFilterWidth, { toValue: AppSizes.screen.widthHalf, duration: 200 }),
-        Animated.parallel([
-          Animated.timing(animatedFilterWidth, { toValue: AppSizes.screen.widthQuarter, duration: 200 }),
-          Animated.timing(animatedFilterXPosition, { toValue: AppSizes.screen.widthQuarter, duration: 200 }),
-        ]),
+      Animated.parallel([
+        Animated.timing(animatedFilterAllColor, { toValue: 1, duration: 300 }),
+        Animated.timing(animatedFilterFavoritesColor, { toValue: 0, duration: 300 }),
+        Animated.timing(animatedFilterXPosition, { toValue: AppSizes.screen.widthQuarter, duration: 300 }),
       ]).start(() => this.setState({ filter: 'favorites' }));
     }
   };
@@ -80,11 +87,21 @@ class HomePage extends Component {
   render() {
     const { loadingStatus, mangas } = this.props;
     const {
+      animatedFilterAllColor,
+      animatedFilterFavoritesColor,
       animatedFilterXPosition,
-      animatedFilterWidth,
       filter,
       search,
     } = this.state;
+
+    const filterAllColor = animatedFilterAllColor.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['rgba(255, 255, 255, 1)', 'rgba(0, 0, 0, 1)'],
+    });
+    const filterFavoritesColor = animatedFilterFavoritesColor.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['rgba(255, 255, 255, 1)', 'rgba(0, 0, 0, 1)'],
+    });
 
     if (loadingStatus.loading) {
       return (
@@ -115,12 +132,18 @@ class HomePage extends Component {
           </View>
 
           {/* bottom of header: filter animated view */}
-          <View style={{ padding: 5, backgroundColor: AppColors.palette.white, marginTop: 20, borderRadius: 50 }}>
+          <View
+            style={{
+              padding: 5,
+              backgroundColor: AppColors.palette.white,
+              marginTop: 20,
+              borderRadius: 50,
+            }}
+          >
             <View style={styles.filterView}>
               <Animated.View
                 style={{
                   ...styles.filterAnimatedView,
-                  width: animatedFilterWidth,
                   transform: [{
                     translateX: animatedFilterXPosition,
                   }],
@@ -128,36 +151,14 @@ class HomePage extends Component {
               />
               <View style={styles.filterViewText}>
                 <TouchableOpacity style={styles.touchableHeaderView} onPress={this.onFilterAllPressed}>
-                  <Text
-                    style={[
-                      styles.touchableHeaderText,
-                      filter === 'all' ? {
-                        color: AppColors.palette.white,
-                        fontWeight: 'bold',
-                      } : {
-                        color: AppColors.palette.black,
-                        fontWeight: 'normal',
-                      },
-                    ]}
-                  >
+                  <Animated.Text style={{ ...styles.touchableHeaderText, color: filterAllColor }}>
                     All
-                  </Text>
+                  </Animated.Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.touchableHeaderView} onPress={this.onFilterFavoritesPressed}>
-                  <Text
-                    style={[
-                      styles.touchableHeaderText,
-                      filter === 'favorites' ? {
-                        color: AppColors.palette.white,
-                        fontWeight: 'bold',
-                      } : {
-                        color: AppColors.palette.black,
-                        fontWeight: 'normal',
-                      },
-                    ]}
-                  >
+                  <Animated.Text style={{ ...styles.touchableHeaderText, color: filterFavoritesColor }}>
                     Favorites
-                  </Text>
+                  </Animated.Text>
                 </TouchableOpacity>
               </View>
             </View>

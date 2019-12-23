@@ -17,7 +17,6 @@ import * as ScanActions from '../../redux/actions/scan-actions';
 const styles = StyleSheet.create({
   container: {
     width: AppSizes.screen.width * 0.215,
-    backgroundColor: AppColors.palette.red,
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 10,
@@ -43,6 +42,15 @@ class ChapterListItem extends React.Component {
 
   render() {
     const { chapter } = this.props;
+    if (chapter.id.includes('chapterNull')) {
+      return (
+        <View style={styles.container}>
+          <Text>
+            null
+          </Text>
+        </View>
+      );
+    }
     return (
       <TouchableOpacity
         activeOpacity={0.8}
@@ -75,10 +83,14 @@ ChapterListItem.propTypes = {
     id: PropTypes.string.isRequired,
     number: PropTypes.string.isRequired,
     isRead: PropTypes.bool.isRequired,
-  }).isRequired,
+  }),
   getScans: PropTypes.func.isRequired,
   markChapterAsRead: PropTypes.func.isRequired,
   selectedManga: PropTypes.object.isRequired,
+};
+
+ChapterListItem.defaultProps = {
+  chapter: null,
 };
 
 const mapStateToProps = (state) => ({

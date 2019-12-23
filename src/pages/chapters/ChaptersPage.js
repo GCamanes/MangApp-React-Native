@@ -1,9 +1,14 @@
 import PropTypes from 'prop-types';
+import LinearGradient from 'react-native-linear-gradient';
 import React, { Component } from 'react';
+import { Actions } from 'react-native-router-flux';
 import {
+  ActivityIndicator,
   FlatList,
+  Image,
   ScrollView,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -12,9 +17,10 @@ import AppConstants from '../../app/app.constants';
 import AppSizes from '../../app/app.sizes';
 import AppStyles from '../../app/app.styles';
 import ChapterListItem from '../../components/chapter/ChapterListItem';
-import CustomLoader from '../../components/common/CustomLoader';
 import Icon from '../../components/common/Icon';
 import styles from './chaptersPage.styles';
+import AppColors from '../../app/app.colors';
+import * as MangaActions from '../../redux/actions/manga-actions';
 
 class ChaptersPage extends Component {
   constructor(props) {
@@ -22,6 +28,12 @@ class ChaptersPage extends Component {
     this.state = {
       page: 0,
     };
+  }
+
+  onFavoritePress = () => {
+    const { markMangaAsFavorite, selectedManga } = this.props;
+    console.log('FAVORITE PRESSED', selectedManga);
+    markMangaAsFavorite(selectedManga.name, !selectedManga.isFavorite);
   }
 
   onNextPress = () => {
@@ -48,10 +60,10 @@ class ChaptersPage extends Component {
         page: offset,
       }, () => this.flatList.scrollToOffset({ animated: true, offset: 0 }));
     }
-  }
+  };
 
   render() {
-    const { chapters, loadingStatus } = this.props;
+    const { chapters, loadingStatus, selectedManga } = this.props;
     const { page } = this.state;
 
     const numberOfPages = Math.ceil(chapters.length / 100);
@@ -66,16 +78,55 @@ class ChaptersPage extends Component {
     if (loadingStatus.loading) {
       return (
         <View style={AppStyles.loadingView}>
-          <CustomLoader />
+          <ActivityIndicator size="large" color={AppColors.palette.red} />
         </View>
       );
     }
+
+    const chaptersWithEmpty = [...chapters].filter((chap, index) => index >= pages[page].indexMin && index <= pages[page].indexMax);
+    const emptyChaptersToAdd = chaptersWithEmpty.length % 4;
+    console.log('NUMBER OF EMPTY', emptyChaptersToAdd);
+    for (let i = 1; i <= emptyChaptersToAdd; i++) {
+      chaptersWithEmpty.push({ id: `chapterNull_${i}` });
+    }
+    console.log('EMPRY', chaptersWithEmpty);
+
     return (
       <View style={styles.container}>
+        <View style={styles.header}>
+          <Image source={{ uri: selectedManga.imgUrl }} style={styles.headerImage} />
+          <TouchableOpacity
+            style={styles.backView}
+            onPress={() => Actions.pop()}
+          >
+            <Icon name="arrowThinLeft" style={styles.backIcon} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            style={styles.favoriteView}
+            onPress={this.onFavoritePress}
+          >
+            <Icon
+              name="heart"
+              style={{
+                ...styles.favoriteIcon,
+                color: selectedManga.isFavorite ? AppColors.palette.red : AppColors.palette.grey,
+              }}
+            />
+          </TouchableOpacity>
+          <LinearGradient
+            style={styles.gradientView}
+            colors={[AppColors.palette.transparent, AppColors.palette.black]}
+          >
+            <Text style={styles.mangaName}>
+              {selectedManga.name}
+            </Text>
+          </LinearGradient>
+        </View>
         <View style={styles.pagesView}>
           <View style={styles.iconView}>
             {page > 0 && (
-              <Icon name="backward" onPress={this.onPreviousPress} />
+              <Icon name="arrowOutlineLeft" onPress={this.onPreviousPress} />
             )}
           </View>
           <ScrollView
@@ -96,7 +147,7 @@ class ChaptersPage extends Component {
           </ScrollView>
           <View style={styles.iconView}>
             {page < numberOfPages - 1 && (
-              <Icon name="forward" onPress={this.onNextPress} />
+              <Icon name="arrowOutlineRight" onPress={this.onNextPress} />
             )}
           </View>
         </View>
@@ -104,7 +155,7 @@ class ChaptersPage extends Component {
           ref={(node) => this.flatList = node}
           columnWrapperStyle={{ justifyContent: 'space-between' }}
           contentContainerStyle={styles.flatList}
-          data={chapters.filter((chap, index) => index >= pages[page].indexMin && index <= pages[page].indexMax)}
+          data={chaptersWithEmpty}
           keyExtractor={(item) => item.id}
           numColumns={4}
           initialNumToRender={500}
@@ -121,6 +172,8 @@ class ChaptersPage extends Component {
 ChaptersPage.propTypes = {
   chapters: PropTypes.arrayOf(PropTypes.object).isRequired,
   loadingStatus: PropTypes.object,
+  markMangaAsFavorite: PropTypes.func.isRequired,
+  selectedManga: PropTypes.object.isRequired,
 };
 
 ChaptersPage.defaultProps = {
@@ -130,6 +183,7 @@ ChaptersPage.defaultProps = {
 const mapStateToProps = (state) => ({
   chapters: state.chapter.chapters,
   loadingStatus: state.app[AppConstants.ROUTES.chapters],
+  selectedManga: state.manga.selectedManga,
 });
 
-export default connect(mapStateToProps, null)(ChaptersPage);
+export default connect(mapStateToProps, MangaActions)(ChaptersPage);
