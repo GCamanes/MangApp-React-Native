@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
 import ReactNativeZoomableView from '@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView';
 import React, { Component } from 'react';
+import { Actions } from 'react-native-router-flux';
 import {
   ActivityIndicator,
   Image,
   ScrollView,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -13,9 +15,10 @@ import AppConstants from '../../app/app.constants';
 import AppColors from '../../app/app.colors';
 import AppSizes from '../../app/app.sizes';
 import AppStyles from '../../app/app.styles';
-import CustomLoader from '../../components/common/CustomLoader';
 import styles from './scansPage.styles';
 import * as ScanActions from '../../redux/actions/scan-actions';
+import Icon from '../../components/common/Icon';
+import PageCounter from '../../components/scans/PageCounter';
 
 class ScansPage extends Component {
   constructor(props) {
@@ -50,13 +53,23 @@ class ScansPage extends Component {
     if (loadingStatus.loading) {
       return (
         <View style={AppStyles.loadingView}>
-          <CustomLoader />
+          <ActivityIndicator size="large" color={AppColors.palette.red} />
         </View>
       );
     }
 
     return (
       <View style={styles.container}>
+        <View style={styles.header}>
+          <TouchableOpacity
+            style={styles.backView}
+            onPress={() => Actions.pop()}
+          >
+            <Icon name="arrowThinLeft" style={styles.backIcon} />
+          </TouchableOpacity>
+          <PageCounter />
+        </View>
+
         <ScrollView
           horizontal
           onScroll={this.onScroll}
