@@ -32,7 +32,6 @@ class ChaptersPage extends Component {
 
   onFavoritePress = () => {
     const { markMangaAsFavorite, selectedManga } = this.props;
-    console.log('FAVORITE PRESSED', selectedManga);
     markMangaAsFavorite(selectedManga.name, !selectedManga.isFavorite);
   }
 
@@ -85,11 +84,9 @@ class ChaptersPage extends Component {
 
     const chaptersWithEmpty = [...chapters].filter((chap, index) => index >= pages[page].indexMin && index <= pages[page].indexMax);
     const emptyChaptersToAdd = chaptersWithEmpty.length % 4;
-    console.log('NUMBER OF EMPTY', emptyChaptersToAdd);
     for (let i = 1; i <= emptyChaptersToAdd; i++) {
-      chaptersWithEmpty.push({ id: `chapterNull_${i}` });
+      chaptersWithEmpty.push({ id: `chapterNull_${i}`, number: 'null', isRead: false });
     }
-    console.log('EMPRY', chaptersWithEmpty);
 
     return (
       <View style={styles.container}>

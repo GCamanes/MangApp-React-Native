@@ -61,7 +61,7 @@ class ChapterListItem extends React.Component {
         <View
           style={{
             ...styles.container,
-            backgroundColor: chapter.isRead ? AppColors.palette.yellow : AppColors.palette.white,
+            backgroundColor: chapter.isRead ? AppColors.palette.greyLight : AppColors.palette.white,
           }}
         >
           <Text

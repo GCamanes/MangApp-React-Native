@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderColor: AppColors.palette.white,
     borderWidth: 1,
-    marginRight: 10,
     alignItems: 'center',
     justifyContent: 'center',
   },

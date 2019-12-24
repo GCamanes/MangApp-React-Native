@@ -3,6 +3,7 @@ const AppColors = {
     black: '#000000',
     blackTransparent: 'rgba(185, 185, 185, 0.5)',
     blackSmoke: '#181818',
+    green: '#5AC18E',
     grey: '#A2A2A2',
     greyVeryLight: '#F6F6F6',
     greyLight: '#CACACA',

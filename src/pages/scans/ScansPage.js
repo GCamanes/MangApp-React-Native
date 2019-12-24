@@ -4,8 +4,10 @@ import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import {
   ActivityIndicator,
+  Animated,
   Image,
   ScrollView,
+  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -15,16 +17,18 @@ import AppConstants from '../../app/app.constants';
 import AppColors from '../../app/app.colors';
 import AppSizes from '../../app/app.sizes';
 import AppStyles from '../../app/app.styles';
-import styles from './scansPage.styles';
-import * as ScanActions from '../../redux/actions/scan-actions';
 import Icon from '../../components/common/Icon';
 import PageCounter from '../../components/scans/PageCounter';
+import styles from './scansPage.styles';
+import * as ScanActions from '../../redux/actions/scan-actions';
+import * as ChapterActions from '../../redux/actions/chapter-actions';
 
 class ScansPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       scrollEnabled: true,
+      asReadPopInBottom: new Animated.Value(-100),
     };
   }
 
@@ -36,6 +40,9 @@ class ScansPage extends Component {
       getScanInfos(scans[offset].url, offset);
       setPageCounter(offset + 1, scans.length);
     }
+    if (offset + 1 === scans.length) {
+      this.showAsReadPopIn();
+    }
   }
 
   onZoomAfter = (event, gestureState, zoomableViewEventObject) => {
@@ -46,9 +53,41 @@ class ScansPage extends Component {
     this.setState({ scrollEnabled: zoomableViewEventObject.zoomLevel === 1 });
   }
 
+  hideAsReadPopIn = () => {
+    const { asReadPopInBottom } = this.state;
+    Animated.timing(asReadPopInBottom, {
+      toValue: -100,
+      duration: 1000,
+    }).start();
+  };
+
+  showAsReadPopIn = () => {
+    const { asReadPopInBottom } = this.state;
+    const { selectedChapter } = this.props;
+    if (!selectedChapter.isRead) {
+      Animated.timing(asReadPopInBottom, {
+        delay: 2000,
+        toValue: 0,
+        duration: 1000,
+      }).start();
+    }
+  };
+
+  markChapterAsRead = () => {
+    const { asReadPopInBottom } = this.state;
+    const { markChapterAsRead, selectedChapter, selectedManga } = this.props;
+    markChapterAsRead(selectedManga, selectedChapter.id, true);
+    Animated.timing(asReadPopInBottom, {
+      delay: 500,
+      toValue: -100,
+      duration: 1000,
+    }).start();
+    setTimeout(() => Actions.pop(), 1000);
+  };
+
   render() {
-    const { loadingStatus, scans } = this.props;
-    const { scrollEnabled } = this.state;
+    const { loadingStatus, scans, selectedChapter } = this.props;
+    const { asReadPopInBottom, scrollEnabled } = this.state;
 
     if (loadingStatus.loading) {
       return (
@@ -60,16 +99,6 @@ class ScansPage extends Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.header}>
-          <TouchableOpacity
-            style={styles.backView}
-            onPress={() => Actions.pop()}
-          >
-            <Icon name="arrowThinLeft" style={styles.backIcon} />
-          </TouchableOpacity>
-          <PageCounter />
-        </View>
-
         <ScrollView
           horizontal
           onScroll={this.onScroll}
@@ -98,6 +127,29 @@ class ScansPage extends Component {
             </ReactNativeZoomableView>
           ))}
         </ScrollView>
+
+        <TouchableOpacity
+          style={styles.backView}
+          onPress={() => Actions.pop()}
+        >
+          <Icon name="arrowThinLeft" style={styles.backIcon} />
+        </TouchableOpacity>
+
+        <View style={styles.pageCounterView}>
+          <PageCounter />
+        </View>
+
+        <Animated.View style={{ ...styles.chapterReadView, bottom: asReadPopInBottom }}>
+          <Text style={styles.chapterReadText}>
+            {`Mark chapter ${selectedChapter.number} as read ?`}
+          </Text>
+          <TouchableOpacity onPress={this.markChapterAsRead} style={styles.chapterReadTouchable}>
+            <Icon name="checkMark" style={styles.chapterReadValidateText} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this.hideAsReadPopIn} style={styles.chapterReadTouchable}>
+            <Icon name="close" style={styles.chapterReadDeniedText} />
+          </TouchableOpacity>
+        </Animated.View>
       </View>
     );
   }
@@ -106,7 +158,10 @@ class ScansPage extends Component {
 ScansPage.propTypes = {
   getScanInfos: PropTypes.func.isRequired,
   loadingStatus: PropTypes.object,
+  markChapterAsRead: PropTypes.func.isRequired,
   scans: PropTypes.array.isRequired,
+  selectedChapter: PropTypes.object.isRequired,
+  selectedManga: PropTypes.object.isRequired,
   setPageCounter: PropTypes.func.isRequired,
 };
 
@@ -117,6 +172,11 @@ ScansPage.defaultProps = {
 const mapStateToProps = (state) => ({
   loadingStatus: state.app[AppConstants.ROUTES.scans],
   scans: state.scan.scans,
+  selectedChapter: state.chapter.selectedChapter,
+  selectedManga: state.manga.selectedManga,
 });
 
-export default connect(mapStateToProps, ScanActions)(ScansPage);
+export default connect(
+  mapStateToProps,
+  { ...ChapterActions, ...ScanActions },
+)(ScansPage);

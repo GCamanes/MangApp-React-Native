@@ -40,7 +40,7 @@ export function* getChaptersSaga(action) {
       .get();
 
     const lastChapterRead = yield getItem(`${action.payload.name}${AppConstants.STORAGE.LAST_CHAPTER_READ}`);
-    console.log('LAST CHAPTER READ', lastChapterRead);
+
     const chapters = chaptersData._data.chaptersList.map((item) => ({
       id: item,
       number: getChapterNumber(item),
